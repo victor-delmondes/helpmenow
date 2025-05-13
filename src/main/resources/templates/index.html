@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Dashboard - HelpMeNow</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark">
+            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-hands-helping"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>Help Me Now</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link active" href="/index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/users.html"><i class="fas fa-user-circle"></i><span>Usuários</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/departments.html"><i class="fas fa-archive"></i><span>Departamentos</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/categories.html"><i class="fas fa-list-ul"></i><span>Categorias</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-expand bg-white shadow mb-4 topbar">
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            <div class="d-none d-sm-block topbar-divider"></div>
+                            <li class="nav-item dropdown no-arrow">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Username</span><i class="fas fa-user" style="font-size: 20px;"></i></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container-fluid">
+                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                        <h3 class="text-dark mb-0">Dashboard</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-4">
+                            <div class="card shadow border-left-danger py-2">
+                                <div class="card-body">
+                                    <div class="row g-0 align-items-center">
+                                        <div class="col me-2">
+                                            <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>em aberto</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                        </div>
+                                        <div class="col-auto"><i class="fas fa-exclamation-circle text-danger fa-2x 300"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mb-4">
+                            <div class="card shadow border-left-warning py-2">
+                                <div class="card-body">
+                                    <div class="row g-0 align-items-center">
+                                        <div class="col me-2">
+                                            <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>em andamento</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                        </div>
+                                        <div class="col-auto"><i class="fas fa-clock text-warning fa-2x 300"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mb-4">
+                            <div class="card shadow border-left-success py-2">
+                                <div class="card-body">
+                                    <div class="row g-0 align-items-center">
+                                        <div class="col me-2">
+                                            <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>resolvidos</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                        </div>
+                                        <div class="col-auto"><i class="fas fa-check-circle text-success fa-2x 300"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-4">
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="text-primary m-0 fw-bold">Chamados</p>
+                                        </div>
+                                        <div class="col text-end"><button class="btn btn-primary" type="button" data-bs-target="#new_ticket_modal" data-bs-toggle="modal">Novo chamado</button></div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 align-self-center">
+                                            <div class="form-check pe-0 me-4" style="display: inline-block;"><input class="form-check-input" type="checkbox" id="open_filter" checked="" name="in_progress_filter"><label class="form-check-label" for="open_filter">Aberto</label></div>
+                                            <div class="form-check me-4" style="display: inline-block;"><input class="form-check-input" type="checkbox" id="in_progress_filter" name="in_progress_filter" checked=""><label class="form-check-label" for="in_progress_filter">Andamento</label></div>
+                                            <div class="form-check me-4" style="display: inline-block;"><input class="form-check-input" type="checkbox" id="closed_filter" value="" name="closed_filter"><label class="form-check-label" for="closed_filter">Resolvido</label></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="text-md-end dataTables_filter" id="tickets_table_filter"><label class="form-label"><input type="search" id="table_search" class="form-control form-control-sm" aria-controls="tickets_table" placeholder="Pesquisar"></label></div>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive table mt-2" id="tickets_table" role="grid" aria-describedby="dataTable_info">
+                                        <table class="table my-0" id="dataTable">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 5%;">#</th>
+                                                    <th style="width: 20%;">Título</th>
+                                                    <th style="width: 15%;">Usuário</th>
+                                                    <th style="width: 10%;"><br>Departamento</th>
+                                                    <th style="width: 10%;"><br>Categoria</th>
+                                                    <th style="width: 10%;"><br>Prioridade</th>
+                                                    <th style="width: 10%;">Status</th>
+                                                    <th style="width: 10%;">Data</th>
+                                                    <th style="width: 15%;">Técnico</th>
+                                                    <th style="width: 10%;">Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>0</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td style="text-align: center;"><a id="show_icon" href="#" style="color: rgb(0,0,0);"><i class="fas fa-eye" style="font-size: 16px;"></i></a></td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td style="width: 5%;font-weight: bold;">#</td>
+                                                    <td style="width: 20%;font-weight: bold;">Título</td>
+                                                    <td style="width: 15%;font-weight: bold;">Usuário</td>
+                                                    <td style="width: 10%;font-weight: bold;">Departamento</td>
+                                                    <td style="width: 10%;font-weight: bold;">Categoria</td>
+                                                    <td style="width: 10%;font-weight: bold;">Prioridade</td>
+                                                    <td style="width: 10%;font-weight: bold;">Status</td>
+                                                    <td style="width: 10%;font-weight: bold;">Data</td>
+                                                    <td style="width: 15%;"><strong>Técnico</strong></td>
+                                                    <td style="width: 10%;font-weight: bold;">Ações</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers" id="table_pagination">
+                                                <ul class="pagination">
+                                                    <li class="page-item disabled"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+                                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                    <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © HelpMeNow 2025</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="new_ticket_modal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Novo chamado</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="user">
+                        <div class="row">
+                            <div class="col"><input class="form-control form-control-user mb-3" type="text" id="ticket_title_input" name="ticket_title_input" placeholder="Titulo"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><select class="form-select form-control-user mb-3">
+                                    <optgroup label="Prioridade">
+                                        <option value="BAIXA" selected="">Baixa</option>
+                                        <option value="MEDIA">Média</option>
+                                        <option value="ALTA">Alta</option>
+                                    </optgroup>
+                                </select></div>
+                            <div class="col"><select class="form-select form-control-user mb-3">
+                                    <optgroup label="Departamento">
+                                        <option value="---" selected="">---</option>
+                                    </optgroup>
+                                </select></div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><textarea class="form-control pt-3 pb-3 ps-3 pe-3" style="width: 100%;height: 250px;border-radius: 30px;font-size: 12.8px;" placeholder="Descrição do problema"></textarea></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button><button class="btn btn-primary" type="button">Criar</button></div>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/theme.js"></script>
+</body>
+
+</html>
