@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Table - HelpMeNow</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
 </head>
 
 <body id="page-top">
@@ -19,10 +19,10 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="/index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="/users.html"><i class="fas fa-userApp-circle"></i><span>Usuários</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/departments.html"><i class="fas fa-archive"></i><span>Departamentos</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/categories.html"><i class="fas fa-list-ul"></i><span>Categorias</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="index"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="users"><i class="fas fa-userApp-circle"></i><span>Usuários</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="departments"><i class="fas fa-archive"></i><span>Departamentos</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="categories"><i class="fas fa-list-ul"></i><span>Categorias</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-6 text-nowrap"><button class="btn btn-primary" id="new_user_button" type="button" data-bs-target="#edit_user_modal" data-bs-toggle="modal">Novo usuário</button></div>
+                                <div class="col-md-6 text-nowrap"><button class="btn btn-primary" id="new_user_button" type="button" data-bs-target="#new_user_modal" data-bs-toggle="modal">Novo usuário</button></div>
                                 <div class="col-md-6">
                                     <div class="text-md-end dataTables_filter" id="users_table_filter"><label class="form-label"><input type="search" id="users_table_search" class="form-control form-control-sm" aria-controls="users_table" placeholder="Pesquisar"></label></div>
                                 </div>
@@ -67,19 +67,31 @@
                                             <th style="width: 15%;">Ações</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>0</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="justify-content-center align-items-center align-content-center" id="edit_icon"><a href="#" style="color: rgb(0,0,0);"><i class="fas fa-edit me-2" id="edit_icon" style="font-size: 16px;"></i></a><a id="view_icon" href="#" style="color: rgb(0,0,0);"><i class="fas fa-eye me-2" style="font-size: 16px;"></i></a>
-                                                <div class="form-check form-switch mt-0 pt-1" style="display: inline-block;margin: 0px;padding: 0px;height: 16px;min-height: 16px;"><input type="checkbox" id="status-switch" class="form-check-input mt-0 me-0 ms-0 pb-0 mb-0" role="switch" checked="" style="display: inline-block;"></div>
-                                            </td>
-                                        </tr>
+                                    <tbody id="users_table_body">
+                                    <tr th:each="user : ${users}"
+                                        th:attr="data-name=${user.name}, data-email=${user.email}, data-type=${user.type}, data-department=${user.department.name}">
+                                        <td th:text="${user.id}"></td>
+                                        <td th:text="${user.name}"></td>
+                                        <td th:text="${user.email}"></td>
+                                        <td th:text="${user.department.name}"></td>
+                                        <td th:text="${user.type}"></td>
+                                        <td>
+                                            <span th:if="${user.active}" class="badge bg-success">Ativo</span>
+                                            <span th:if="${!user.active}" class="badge bg-danger">Inativo</span>
+                                        </td>
+                                        <td class="justify-content-center align-items-center align-content-center">
+                                            <a href="#" style="color: rgb(0,0,0);" class="me-2" th:attr="data-user-id=${user.id}" data-bs-toggle="modal" data-bs-target="#edit_user_modal"><i class="fas fa-edit me-2"  style="font-size: 16px;"></i></a>
+                                            <a href="#" style="color: rgb(0,0,0);" class="me-2" th:attr="data-user-id=${user.id}" data-bs-toggle="modal" data-bs-target="#user_details_modal"><i class="fas fa-eye me-2" style="font-size: 16px;"></i></a>
+                                            <div class="form-check form-switch d-inline-block">
+                                                <input type="checkbox"
+                                                       class="form-check-input"
+                                                       th:attr="data-user-id=${user.id}"
+                                                       th:checked="${user.active}">
+                                            </div>
+                                        </td>
+                                    </tr>
                                     </tbody>
+
                                     <tfoot>
                                         <tr>
                                             <td style="width: 5%;font-weight: bold;">#</td>
@@ -130,7 +142,8 @@
                             </optgroup>
                         </select><select class="form-select form-control-userApp mb-3" id="type_user_select" name="type_user_select" required="">
                             <optgroup label="Tipo">
-                                <option value="">---</option>
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="CLIENT">CLIENTE</option>
                             </optgroup>
                         </select></form>
                 </div>
@@ -151,7 +164,8 @@
                             </optgroup>
                         </select><select class="form-select form-control-userApp mb-3" id="edit_type_user_select" name="edit_type_user_select" required="">
                             <optgroup label="Tipo">
-                                <option value="">---</option>
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="CLIENT">CLIENTE</option>
                             </optgroup>
                         </select></form>
                 </div>
@@ -188,8 +202,9 @@
             </div>
         </div>
     </div>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/theme.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/admin-users.js"></script>
 </body>
 
 </html>

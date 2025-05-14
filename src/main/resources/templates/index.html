@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Dashboard - HelpMeNow</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
 </head>
 
 <body id="page-top">
@@ -19,10 +19,10 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link active" href="/index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/users.html"><i class="fas fa-userApp-circle"></i><span>Usuários</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/departments.html"><i class="fas fa-archive"></i><span>Departamentos</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="/categories.html"><i class="fas fa-list-ul"></i><span>Categorias</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="index"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="users"><i class="fas fa-userApp-circle"></i><span>Usuários</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="departments"><i class="fas fa-archive"></i><span>Departamentos</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="categories"><i class="fas fa-list-ul"></i><span>Categorias</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -52,7 +52,7 @@
                                     <div class="row g-0 align-items-center">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>em aberto</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span th:text="${countOpen}">0</span></div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-exclamation-circle text-danger fa-2x 300"></i></div>
                                     </div>
@@ -65,7 +65,7 @@
                                     <div class="row g-0 align-items-center">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>em andamento</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span th:text="${countInProgress}">0</span></div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-clock text-warning fa-2x 300"></i></div>
                                     </div>
@@ -78,7 +78,7 @@
                                     <div class="row g-0 align-items-center">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>resolvidos</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                            <div class="text-dark fw-bold h5 mb-0"><span th:text="${countResolved}">0</span></div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-check-circle text-success fa-2x 300"></i></div>
                                     </div>
@@ -94,7 +94,9 @@
                                         <div class="col">
                                             <p class="text-primary m-0 fw-bold">Chamados</p>
                                         </div>
-                                        <div class="col text-end"><button class="btn btn-primary" type="button" data-bs-target="#new_ticket_modal" data-bs-toggle="modal">Novo chamado</button></div>
+                                        <div th:if="${#authentication.principal.user.type.name() == 'CLIENT'}" class="col text-end">
+                                            <button class="btn btn-primary" type="button" data-bs-target="#new_ticket_modal" data-bs-toggle="modal">Novo chamado</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -124,19 +126,24 @@
                                                     <th style="width: 10%;">Ações</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>0</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td style="text-align: center;"><a id="show_icon" href="#" style="color: rgb(0,0,0);"><i class="fas fa-eye" style="font-size: 16px;"></i></a></td>
-                                                </tr>
+                                            <tbody id="tickets_body">
+                                            <tr th:each="ticket : ${tickets}"
+                                                th:attr="data-status=${ticket.status}, data-title=${ticket.title}, data-user=${ticket.createdBy.name}, data-category=${ticket.category.name}">
+                                                <td th:text="${ticket.id}">#</td>
+                                                <td th:text="${ticket.title}">Título</td>
+                                                <td th:text="${ticket.createdBy.name}">Usuário</td>
+                                                <td th:text="${ticket.createdBy.department.name}">Departamento</td>
+                                                <td th:text="${ticket.category.name}">Categoria</td>
+                                                <td th:text="${ticket.priority}">Prioridade</td>
+                                                <td th:text="${ticket.status}">Status</td>
+                                                <td th:text="${#dates.format(ticket.createdAt, 'dd/MM/yyyy HH:mm')}">Data</td>
+                                                <td th:text="${ticket.assignedTechnician?.name}">Técnico</td>
+                                                <td style="text-align:center;">
+                                                    <a th:href="@{'/admin/tickets/' + ${ticket.id}}" style="color: black;">
+                                                        <i class="fas fa-eye" style="font-size: 16px;"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
@@ -214,8 +221,9 @@
             </div>
         </div>
     </div>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/theme.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/admin-index.js"></script>
 </body>
 
 </html>
