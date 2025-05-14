@@ -18,7 +18,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private User author;
+    private UserApp author;
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")
@@ -52,11 +52,11 @@ public class Comment {
         this.createdAt = createdAt;
     }
 
-    public User getAuthor() {
+    public UserApp getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(UserApp author) {
         this.author = author;
     }
 

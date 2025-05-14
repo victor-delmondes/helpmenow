@@ -1,6 +1,6 @@
 package com.br.helpmenow.security;
 
-import com.br.helpmenow.model.User;
+import com.br.helpmenow.model.UserApp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,25 +10,25 @@ import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
 
-    private final User user;
+    private final UserApp userApp;
 
-    public CustomUserDetails(User user) {
-        this.user = user;
+    public CustomUserDetails(UserApp userApp) {
+        this.userApp = userApp;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + user.getType().name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + userApp.getType().name()));
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return userApp.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return userApp.getEmail();
     }
 
     @Override
@@ -48,10 +48,10 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.isActive();
+        return userApp.isActive();
     }
 
-    public User getUser() {
-        return user;
+    public UserApp getUser() {
+        return userApp;
     }
 }

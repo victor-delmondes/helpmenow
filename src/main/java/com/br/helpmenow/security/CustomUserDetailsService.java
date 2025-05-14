@@ -1,6 +1,6 @@
 package com.br.helpmenow.security;
 
-import com.br.helpmenow.model.User;
+import com.br.helpmenow.model.UserApp;
 import com.br.helpmenow.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,8 +18,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email)
+        UserApp userApp = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return new CustomUserDetails(user);
+        return new CustomUserDetails(userApp);
     }
 }

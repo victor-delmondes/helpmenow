@@ -25,6 +25,8 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/client/**").hasRole("CLIENT")
                         .anyRequest().authenticated()
+
+
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -34,9 +36,16 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
-                );
+                )
+                .csrf(csrf -> csrf.disable())
+                .headers(headers -> headers.disable());
 
         return http.build();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

@@ -3,7 +3,7 @@ package com.br.helpmenow.model;
 import jakarta.persistence.*;
 
 @Entity
-public class User {
+public class UserApp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +26,10 @@ public class User {
     @JoinColumn(name = "department_id")
     private Department department;
 
-    public User() {}
+    public UserApp() {}
 
-    public User(long id, String name, String email, String password, UserType type, Boolean active,
-            Department department) {
+    public UserApp(long id, String name, String email, String password, UserType type, Boolean active,
+                   Department department) {
         this.id = id;
         this.name = name;
         this.email = email;

@@ -26,11 +26,11 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "created_by_id")
-    private User createdBy;
+    private UserApp createdBy;
 
     @ManyToOne
     @JoinColumn(name = "assigned_to_id")
-    private User assignedTechnician;
+    private UserApp assignedTechnician;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -89,19 +89,19 @@ public class Ticket {
         this.createdAt = createdAt;
     }
 
-    public User getCreatedBy() {
+    public UserApp getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(User createdBy) {
+    public void setCreatedBy(UserApp createdBy) {
         this.createdBy = createdBy;
     }
 
-    public User getAssignedTechnician() {
+    public UserApp getAssignedTechnician() {
         return assignedTechnician;
     }
 
-    public void setAssignedTechnician(User assignedTechnician) {
+    public void setAssignedTechnician(UserApp assignedTechnician) {
         this.assignedTechnician = assignedTechnician;
     }
 

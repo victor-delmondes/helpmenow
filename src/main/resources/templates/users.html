@@ -20,7 +20,7 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="/index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="/users.html"><i class="fas fa-user-circle"></i><span>Usuários</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/users.html"><i class="fas fa-userApp-circle"></i><span>Usuários</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/departments.html"><i class="fas fa-archive"></i><span>Departamentos</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="/categories.html"><i class="fas fa-list-ul"></i><span>Categorias</span></a></li>
                 </ul>
@@ -34,7 +34,7 @@
                         <ul class="navbar-nav flex-nowrap ms-auto">
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Username</span><i class="fas fa-user" style="font-size: 20px;"></i></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Username</span><i class="fas fa-userApp" style="font-size: 20px;"></i></a>
                                     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a></div>
                                 </div>
                             </li>
@@ -124,11 +124,11 @@
                     <h4 class="modal-title">Novo usuário</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="new_user_form" class="user"><input class="form-control form-control-user mb-3" type="email" id="user_email_input" placeholder="Email" name="user_email_input" required=""><input class="form-control form-control-user mb-3" type="text" id="user_name_input" placeholder="Nome completo" name="user_name_input" required=""><input class="form-control form-control-user mb-3" type="password" id="password_name_input" name="password_name_input" placeholder="Senha" required=""><select class="form-select form-control-user mb-3" id="department_user_select" name="department_user_select" required="">
+                    <form id="new_user_form" class="userApp"><input class="form-control form-control-userApp mb-3" type="email" id="user_email_input" placeholder="Email" name="user_email_input" required=""><input class="form-control form-control-userApp mb-3" type="text" id="user_name_input" placeholder="Nome completo" name="user_name_input" required=""><input class="form-control form-control-userApp mb-3" type="password" id="password_name_input" name="password_name_input" placeholder="Senha" required=""><select class="form-select form-control-userApp mb-3" id="department_user_select" name="department_user_select" required="">
                             <optgroup label="Departamento">
                                 <option value="">---</option>
                             </optgroup>
-                        </select><select class="form-select form-control-user mb-3" id="type_user_select" name="type_user_select" required="">
+                        </select><select class="form-select form-control-userApp mb-3" id="type_user_select" name="type_user_select" required="">
                             <optgroup label="Tipo">
                                 <option value="">---</option>
                             </optgroup>
@@ -145,11 +145,11 @@
                     <h4 class="modal-title">Novo usuário</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="edit_user_form" class="user"><input class="form-control form-control-user mb-3" type="email" id="edit_user_email_input" placeholder="Email" name="edit_user_email_input" required=""><input class="form-control form-control-user mb-3" type="text" id="edit_user_name_input" placeholder="Nome completo" name="edit_user_name_input" required=""><select class="form-select form-control-user mb-3" id="edit_department_user_select" name="edit_department_user_select" required="">
+                    <form id="edit_user_form" class="userApp"><input class="form-control form-control-userApp mb-3" type="email" id="edit_user_email_input" placeholder="Email" name="edit_user_email_input" required=""><input class="form-control form-control-userApp mb-3" type="text" id="edit_user_name_input" placeholder="Nome completo" name="edit_user_name_input" required=""><select class="form-select form-control-userApp mb-3" id="edit_department_user_select" name="edit_department_user_select" required="">
                             <optgroup label="Departamento">
                                 <option value="">---</option>
                             </optgroup>
-                        </select><select class="form-select form-control-user mb-3" id="edit_type_user_select" name="edit_type_user_select" required="">
+                        </select><select class="form-select form-control-userApp mb-3" id="edit_type_user_select" name="edit_type_user_select" required="">
                             <optgroup label="Tipo">
                                 <option value="">---</option>
                             </optgroup>
@@ -182,7 +182,7 @@
                     <h4 class="modal-title">Nova senha</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="change_password_form" class="user"><input class="form-control form-control-user mb-0" type="password" id="edit_password_name_input" name="edit_password_input" placeholder="Senha" required=""></form>
+                    <form id="change_password_form" class="userApp"><input class="form-control form-control-userApp mb-0" type="password" id="edit_password_name_input" name="edit_password_input" placeholder="Senha" required=""></form>
                 </div>
                 <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal" data-bs-target="#edit_user_modal" data-bs-toggle="modal">Voltar</button><button class="btn btn-primary" type="button">Salvar</button></div>
             </div>

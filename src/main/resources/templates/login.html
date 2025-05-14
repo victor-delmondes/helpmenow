@@ -17,16 +17,16 @@
                     <div class="card-body p-0">
                         <div class="row" style="height: 400px;">
                             <div class="col-lg-6 d-none d-lg-flex">
-                                <div class="flex-grow-1 bg-login-image" style="background: url(&quot;assets/img/photo-1603969409447-ba86143a03f6-1.jpg&quot;) top / cover no-repeat;"></div>
+                                <div class="flex-grow-1 bg-login-image" style="background: url(&quot;/assets/img/photo-1603969409447-ba86143a03f6-1.jpg&quot;) top / cover no-repeat;"></div>
                             </div>
                             <div class="col-lg-6 align-content-center">
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h4 class="text-dark mb-4">Help Me Now!</h4>
                                     </div>
-                                    <form class="user">
-                                        <div class="mb-3"><input class="form-control form-control-user" type="email" id="InputEmail" aria-describedby="emailHelp" placeholder="Email" name="email"></div>
-                                        <div class="mb-3"><input class="form-control form-control-user" type="password" id="InputPassword" placeholder="Senha" name="password"></div><button class="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
+                                    <form class="userApp" th:action="@{/login}" method="post">
+                                        <div class="mb-3"><input class="form-control form-control-userApp" type="email" id="username" aria-describedby="emailHelp" placeholder="Email" name="username"></div>
+                                        <div class="mb-3"><input class="form-control form-control-userApp" type="password" id="password" placeholder="Senha" name="password"></div><button class="btn btn-primary d-block btn-userApp w-100" type="submit">Login</button>
                                     </form>
                                 </div>
                             </div>
