@@ -27,4 +27,9 @@ public class TicketService {
     public long countByStatus(TicketStatus status) {
         return ticketRepository.countByStatus(status);
     }
+
+    public Ticket findById(Long id) {
+        return ticketRepository.findById(id).orElse(null);
+    }
+
 }

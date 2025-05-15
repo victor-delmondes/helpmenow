@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Controller
-public class AdminDashboardController {
+public class AdmTicketController {
 
     private final TicketService ticketService;
 
-    public AdminDashboardController(TicketService ticketService) {
+    public AdmTicketController(TicketService ticketService) {
         this.ticketService = ticketService;
     }
 

@@ -14,10 +14,13 @@ public class Category {
 
     private String name;
 
+    private Boolean status;
+
     public Category() {}
 
     public Category(String name) {
         this.name = name;
+        this.status = true;
     }
 
     public Long getId() {
@@ -34,6 +37,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
     
 }

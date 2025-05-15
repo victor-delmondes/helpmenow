@@ -13,23 +13,40 @@ public class DataInitializer {
     @Bean
     public CommandLineRunner initData(UserRepository userRepository,
                                       DepartmentRepository departmentRepository,
+                                      CategoryRepository categoryRepository,
                                       BCryptPasswordEncoder passwordEncoder) {
         return args -> {
             if (userRepository.findByEmail("admin@example.com").isEmpty()) {
+                // Departamentos
                 Department ti = new Department("IT", "101", "Building A");
-                departmentRepository.save(ti);
+                Department financeiro = new Department("Finance", "202", "Building B");
+                Department atendimento = new Department("Support", "303", "Building C");
 
-                UserApp admin = new UserApp();
-                admin.setName("Admin");
-                admin.setEmail("admin@example.com");
-                admin.setPassword(passwordEncoder.encode("123456"));
-                admin.setType(UserType.ADMIN);
-                admin.setActive(true);
-                admin.setDepartment(ti);
+                departmentRepository.save(ti);
+                departmentRepository.save(financeiro);
+                departmentRepository.save(atendimento);
+
+                // Categorias
+                Category acesso = new Category("Problemas de Acesso");
+                Category rede = new Category("Rede e Internet");
+                Category sistema = new Category("Erro no Sistema");
+
+                categoryRepository.save(acesso);
+                categoryRepository.save(rede);
+                categoryRepository.save(sistema);
+
+                // Usuários
+                UserApp admin = new UserApp("Admin", "admin@example.com", passwordEncoder.encode("123456"), UserType.ADMIN, true, ti);
+                UserApp user1 = new UserApp("Carlos Financeiro", "carlos@empresa.com", passwordEncoder.encode("123456"), UserType.CLIENT, true, financeiro);
+                UserApp user2 = new UserApp("Fernanda Suporte", "fernanda@empresa.com", passwordEncoder.encode("123456"), UserType.CLIENT, true, atendimento);
 
                 userRepository.save(admin);
-                System.out.println("✅ Admin user created: admin@example.com / 123456");
+                userRepository.save(user1);
+                userRepository.save(user2);
+
+                System.out.println("✅ Dados de exemplo inseridos com sucesso!");
             }
         };
     }
+
 }

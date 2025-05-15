@@ -15,6 +15,7 @@ public class Department  {
     private String name;
     private String extension; // ramal
     private String location;
+    private Boolean status;
 
     public Department() {}
 
@@ -22,6 +23,7 @@ public class Department  {
         this.name = name;
         this.extension = extension;
         this.location = location;
+        this.status = true; // default status is true
     }
 
     public Long getId() {
@@ -54,5 +56,13 @@ public class Department  {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }

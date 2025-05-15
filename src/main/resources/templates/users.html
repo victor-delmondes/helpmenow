@@ -11,200 +11,314 @@
 </head>
 
 <body id="page-top">
-    <div id="wrapper">
-        <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark">
-            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-hands-helping"></i></div>
-                    <div class="sidebar-brand-text mx-3"><span>Help Me Now</span></div>
-                </a>
-                <hr class="sidebar-divider my-0">
-                <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="index"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="users"><i class="fas fa-userApp-circle"></i><span>Usuários</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="departments"><i class="fas fa-archive"></i><span>Departamentos</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="categories"><i class="fas fa-list-ul"></i><span>Categorias</span></a></li>
-                </ul>
-                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+<div id="wrapper">
+    <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark">
+        <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+            <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-hands-helping"></i></div>
+            <div class="sidebar-brand-text mx-3"><span>Help Me Now</span></div>
+        </a>
+            <hr class="sidebar-divider my-0">
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+                <li class="nav-item"><a class="nav-link" href="index"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                <li class="nav-item"><a class="nav-link active" href="users"><i class="fas fa-user-circle"></i><span>Usuários</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="departments"><i class="fas fa-archive"></i><span>Departamentos</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="categories"><i class="fas fa-list-ul"></i><span>Categorias</span></a></li>
+            </ul>
+            <div class="text-center d-none d-md-inline">
+                <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
             </div>
-        </nav>
-        <div class="d-flex flex-column" id="content-wrapper">
-            <div id="content">
-                <nav class="navbar navbar-expand bg-white shadow mb-4 topbar">
-                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <ul class="navbar-nav flex-nowrap ms-auto">
-                            <div class="d-none d-sm-block topbar-divider"></div>
-                            <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Username</span><i class="fas fa-userApp" style="font-size: 20px;"></i></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+        </div>
+    </nav>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+            <nav class="navbar navbar-expand bg-white shadow mb-4 topbar">
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Usuários</h3>
-                    <div class="card shadow">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Informações de usários</p>
+                    <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                    <ul class="navbar-nav flex-nowrap ms-auto">
+                        <div class="d-none d-sm-block topbar-divider"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Username</span><i class="fas fa-userApp" style="font-size: 20px;"></i></a>
+                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid">
+                <h3 class="text-dark mb-4">Usuários</h3>
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <p class="text-primary m-0 fw-bold">Informações de usários</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 text-nowrap">
+                                <button class="btn btn-primary" id="new_user_button" type="button" data-bs-target="#new_user_modal" data-bs-toggle="modal">Novo usuário</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-md-end dataTables_filter" id="users_table_filter"><label class="form-label"><input type="search" id="users_table_search" class="form-control form-control-sm" aria-controls="users_table" placeholder="Pesquisar"></label></div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 text-nowrap"><button class="btn btn-primary" id="new_user_button" type="button" data-bs-target="#new_user_modal" data-bs-toggle="modal">Novo usuário</button></div>
-                                <div class="col-md-6">
-                                    <div class="text-md-end dataTables_filter" id="users_table_filter"><label class="form-label"><input type="search" id="users_table_search" class="form-control form-control-sm" aria-controls="users_table" placeholder="Pesquisar"></label></div>
-                                </div>
-                            </div>
-                            <div class="table-responsive table mt-2" id="users_table" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0" id="dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 5%;">#</th>
-                                            <th style="width: 20%;">Nome</th>
-                                            <th style="width: 20%;">Email</th>
-                                            <th style="width: 15%;">Departamento</th>
-                                            <th style="width: 10%;">Tipo</th>
-                                            <th style="width: 10%;">Status</th>
-                                            <th style="width: 15%;">Ações</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="users_table_body">
-                                    <tr th:each="user : ${users}"
-                                        th:attr="data-name=${user.name}, data-email=${user.email}, data-type=${user.type}, data-department=${user.department.name}">
-                                        <td th:text="${user.id}"></td>
-                                        <td th:text="${user.name}"></td>
-                                        <td th:text="${user.email}"></td>
-                                        <td th:text="${user.department.name}"></td>
-                                        <td th:text="${user.type}"></td>
-                                        <td>
-                                            <span th:if="${user.active}" class="badge bg-success">Ativo</span>
-                                            <span th:if="${!user.active}" class="badge bg-danger">Inativo</span>
-                                        </td>
-                                        <td class="justify-content-center align-items-center align-content-center">
-                                            <a href="#" style="color: rgb(0,0,0);" class="me-2" th:attr="data-user-id=${user.id}" data-bs-toggle="modal" data-bs-target="#edit_user_modal"><i class="fas fa-edit me-2"  style="font-size: 16px;"></i></a>
-                                            <a href="#" style="color: rgb(0,0,0);" class="me-2" th:attr="data-user-id=${user.id}" data-bs-toggle="modal" data-bs-target="#user_details_modal"><i class="fas fa-eye me-2" style="font-size: 16px;"></i></a>
-                                            <div class="form-check form-switch d-inline-block">
-                                                <input type="checkbox"
-                                                       class="form-check-input"
-                                                       th:attr="data-user-id=${user.id}"
-                                                       th:checked="${user.active}">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
+                        <div class="table-responsive table mt-2" id="users_table" role="grid" aria-describedby="dataTable_info">
+                            <table class="table my-0" id="dataTable">
+                                <thead>
+                                <tr>
+                                    <th style="width: 5%;">#</th>
+                                    <th style="width: 20%;">Nome</th>
+                                    <th style="width: 20%;">Email</th>
+                                    <th style="width: 15%;">Departamento</th>
+                                    <th style="width: 10%;">Tipo</th>
+                                    <th style="width: 10%;">Status</th>
+                                    <th style="width: 15%;">Ações</th>
+                                </tr>
+                                </thead>
+                                <tbody id="users_table_body">
+                                <tr th:each="user : ${users}" th:attr="id='user-${user.id}'">
+                                    <td th:text="${user.id}"></td>
+                                    <td th:text="${user.name}"></td>
+                                    <td th:text="${user.email}"></td>
+                                    <td th:text="${user.department.name}"></td>
+                                    <td th:text="${user.type}"></td>
+                                    <td>
+                                        <span th:id="'user-status-' + ${user.id}"
+                                              th:classappend="${user.active} ? 'badge bg-success' : 'badge bg-danger'"
+                                              th:text="${user.active} ? 'Ativo' : 'Inativo'">
+                                        </span>
+                                    </td>
+                                    <td class="justify-content-center align-items-center align-content-center">
 
-                                    <tfoot>
-                                        <tr>
-                                            <td style="width: 5%;font-weight: bold;">#</td>
-                                            <td style="width: 20%;font-weight: bold;">Nome</td>
-                                            <td style="width: 20%;font-weight: bold;">Email</td>
-                                            <td style="width: 15%;font-weight: bold;">Departamento</td>
-                                            <td style="width: 10%;font-weight: bold;">Tipo</td>
-                                            <td style="width: 10%;font-weight: bold;">Status</td>
-                                            <td style="width: 10%;font-weight: bold;">Ações</td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers" id="table_user_pagination">
-                                        <ul class="pagination">
-                                            <li class="page-item disabled"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
+                                        <a href="#"
+                                           style="color: rgb(0,0,0);"
+                                           class="me-2 edit-user-btn"
+                                           th:attr="
+                                           data-user-id=${user.id},
+                                           data-user-name=${user.name},
+                                           data-user-email=${user.email},
+                                           data-user-type=${user.type},
+                                           data-department-id=${user.department.id},
+                                           data-bs-toggle='modal',
+                                           data-bs-target='#edit_user_modal'
+                                          ">
+                                          <i class="fas fa-edit me-2" style="font-size: 16px;"></i>
+                                        </a>
+
+                                        <a href="#"
+                                           style="color: rgb(0,0,0);"
+                                           class="me-2 view-user-btn"
+                                           th:attr="
+                                           data-user-id=${user.id},
+                                           data-user-name=${user.name},
+                                           data-user-email=${user.email},
+                                           data-user-type=${user.type},
+                                           data-department-name=${user.department.name},
+                                           data-bs-toggle='modal',
+                                           data-bs-target='#user_details_modal'
+                                          ">
+                                            <i class="fas fa-eye me-2" style="font-size: 16px;"></i>
+                                        </a>
+
+
+                                        <div class="form-check form-switch d-inline-block">
+                                            <input type="checkbox"
+                                                   class="form-check-input toggle-user-status"
+                                                   th:attr="data-user-id=${user.id}"
+                                                   th:checked="${user.active}">
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                                <tfoot>
+                                <tr>
+                                    <td style="width: 5%;font-weight: bold;">#</td>
+                                    <td style="width: 20%;font-weight: bold;">Nome</td>
+                                    <td style="width: 20%;font-weight: bold;">Email</td>
+                                    <td style="width: 15%;font-weight: bold;">Departamento</td>
+                                    <td style="width: 10%;font-weight: bold;">Tipo</td>
+                                    <td style="width: 10%;font-weight: bold;">Status</td>
+                                    <td style="width: 10%;font-weight: bold;">Ações</td>
+                                </tr>
+                                </tfoot>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © HelpMeNow 2025</span></div>
-                </div>
-            </footer>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>Copyright © HelpMeNow 2025</span></div>
+            </div>
+        </footer>
     </div>
-    <div class="modal fade" role="dialog" tabindex="-1" id="new_user_modal">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Novo usuário</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="new_user_form" class="userApp"><input class="form-control form-control-userApp mb-3" type="email" id="user_email_input" placeholder="Email" name="user_email_input" required=""><input class="form-control form-control-userApp mb-3" type="text" id="user_name_input" placeholder="Nome completo" name="user_name_input" required=""><input class="form-control form-control-userApp mb-3" type="password" id="password_name_input" name="password_name_input" placeholder="Senha" required=""><select class="form-select form-control-userApp mb-3" id="department_user_select" name="department_user_select" required="">
-                            <optgroup label="Departamento">
-                                <option value="">---</option>
-                            </optgroup>
-                        </select><select class="form-select form-control-userApp mb-3" id="type_user_select" name="type_user_select" required="">
-                            <optgroup label="Tipo">
-                                <option value="ADMIN">ADMIN</option>
-                                <option value="CLIENT">CLIENTE</option>
-                            </optgroup>
-                        </select></form>
-                </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button><button class="btn btn-primary" type="button">Salvar</button></div>
+    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+
+
+<div class="modal fade" role="dialog" tabindex="-1" id="new_user_modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Novo usuário</h4>
+                <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="new_user_form" class="userApp" th:action="@{/admin/users/create}" method="post">
+                    <input class="form-control form-control-userApp mb-3" type="email" id="user_email_input" placeholder="Email" name="user_email_input" required="">
+                    <input class="form-control form-control-userApp mb-3" type="text" id="user_name_input" placeholder="Nome completo" name="user_name_input" required="">
+                    <input class="form-control form-control-userApp mb-3" type="password" id="password_name_input" name="password_name_input" placeholder="Senha" required="">
+                    <select class="form-select form-control-userApp mb-3" id="department_user_select" name="department_user_select" required="">
+                    <optgroup label="Departamento">
+                        <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
+                    </optgroup>
+                </select><select class="form-select form-control-userApp mb-3" id="type_user_select" name="type_user_select" required="">
+                    <optgroup label="Tipo">
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="CLIENT">CLIENTE</option>
+                    </optgroup>
+                </select></form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button>
+                <button class="btn btn-primary" type="submit" form="new_user_form">Salvar</button>
             </div>
         </div>
     </div>
-    <div class="modal fade" role="dialog" tabindex="-1" id="edit_user_modal">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Novo usuário</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="edit_user_form" class="userApp"><input class="form-control form-control-userApp mb-3" type="email" id="edit_user_email_input" placeholder="Email" name="edit_user_email_input" required=""><input class="form-control form-control-userApp mb-3" type="text" id="edit_user_name_input" placeholder="Nome completo" name="edit_user_name_input" required=""><select class="form-select form-control-userApp mb-3" id="edit_department_user_select" name="edit_department_user_select" required="">
-                            <optgroup label="Departamento">
-                                <option value="">---</option>
-                            </optgroup>
-                        </select><select class="form-select form-control-userApp mb-3" id="edit_type_user_select" name="edit_type_user_select" required="">
-                            <optgroup label="Tipo">
-                                <option value="ADMIN">ADMIN</option>
-                                <option value="CLIENT">CLIENTE</option>
-                            </optgroup>
-                        </select></form>
-                </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button><button class="btn btn-primary" type="button">Salvar</button><button class="btn btn-secondary" type="button" data-bs-target="#change_password_modal" data-bs-toggle="modal">Editar senha</button></div>
+</div>
+
+
+<div class="modal fade" role="dialog" tabindex="-1" id="edit_user_modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Editar usuário</h4>
+                <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit_user_form" class="userApp" th:action="@{/admin/users/update}" method="post">
+                    <input type="hidden" name="edit_user_id_input" id="edit_user_id_input">
+                    <input class="form-control form-control-userApp mb-3" type="email" id="edit_user_email_input" placeholder="Email" name="edit_user_email_input" required="">
+                    <input class="form-control form-control-userApp mb-3" type="text" id="edit_user_name_input" placeholder="Nome completo" name="edit_user_name_input" required="">
+                    <select class="form-select form-control-userApp mb-3" id="edit_department_user_select" name="edit_department_user_select" required="">
+                        <optgroup label="Departamento">
+                            <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
+                        </optgroup>
+                    </select><select class="form-select form-control-userApp mb-3" id="edit_type_user_select" name="edit_type_user_select" required="">
+                        <optgroup label="Tipo">
+                            <option value="ADMIN">ADMIN</option>
+                            <option value="CLIENT">CLIENTE</option>
+                        </optgroup>
+                    </select>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button>
+                <button class="btn btn-primary" type="submit" form="edit_user_form">Salvar</button>
+                <button class="btn btn-secondary edit-password-btn"
+                        type="button"
+                        data-user-id="[[${user.id}]]"
+                        data-bs-target="#change_password_modal"
+                        data-bs-toggle="modal">
+                    Editar senha
+                </button>
             </div>
         </div>
     </div>
-    <div class="modal fade" role="dialog" tabindex="-1" id="user_details_modal">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Informações de usuário</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="mb-1"><strong>Nome:&nbsp;</strong><span id="user_name_datails" name="user_name_datails">---</span></p>
-                    <p class="mb-1"><strong>Email:&nbsp;</strong><span id="user_email_datails" name="user_email_datails">---</span></p>
-                    <p class="mb-1"><strong>Departamento:&nbsp;</strong><span id="user_department_datails" name="user_department_datails">---</span></p>
-                    <p class="mb-1"><strong>Tipo:&nbsp;</strong><span id="user_type_datails" name="user_type_datails">---</span></p>
-                </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button></div>
+</div>
+
+
+<div class="modal fade" role="dialog" tabindex="-1" id="user_details_modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Informações de usuário</h4>
+                <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-1"><strong>Nome:&nbsp;</strong><span id="user_name_datails" name="user_name_datails">---</span></p>
+                <p class="mb-1"><strong>Email:&nbsp;</strong><span id="user_email_datails" name="user_email_datails">---</span></p>
+                <p class="mb-1"><strong>Departamento:&nbsp;</strong><span id="user_department_datails" name="user_department_datails">---</span></p>
+                <p class="mb-1"><strong>Tipo:&nbsp;</strong><span id="user_type_datails" name="user_type_datails">---</span></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>
-    <div class="modal fade" role="dialog" tabindex="-1" id="change_password_modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Nova senha</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="change_password_form" class="userApp"><input class="form-control form-control-userApp mb-0" type="password" id="edit_password_name_input" name="edit_password_input" placeholder="Senha" required=""></form>
-                </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal" data-bs-target="#edit_user_modal" data-bs-toggle="modal">Voltar</button><button class="btn btn-primary" type="button">Salvar</button></div>
+</div>
+
+
+<div class="modal fade" role="dialog" tabindex="-1" id="change_password_modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Nova senha</h4>
+                <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="change_password_form" class="userApp" method="post" action="/admin/users/change-password">
+                    <input type="hidden" name="user_id" id="change_password_user_id">
+                    <input class="form-control form-control-userApp mb-0" type="password" id="edit_password_name_input" name="edit_password_input" placeholder="Senha" required="">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal" data-bs-target="#edit_user_modal" data-bs-toggle="modal">Voltar</button>
+                <button class="btn btn-primary" type="submit" form="change_password_form">Salvar</button>
             </div>
         </div>
     </div>
-    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/assets/js/theme.js"></script>
-    <script src="/assets/js/admin-users.js"></script>
+</div>
+
+
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/js/theme.js"></script>
+<script src="/assets/js/admin-users.js"></script>
+
+<script> <!--script do modal de edição de usuário-->
+    document.addEventListener("DOMContentLoaded", function () {
+        const editButtons = document.querySelectorAll(".edit-user-btn");
+
+        editButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                document.getElementById("edit_user_id_input").value = this.dataset.userId;
+                document.getElementById("edit_user_name_input").value = this.dataset.userName;
+                document.getElementById("edit_user_email_input").value = this.dataset.userEmail;
+                document.getElementById("edit_type_user_select").value = this.dataset.userType;
+                document.getElementById("edit_department_user_select").value = this.dataset.departmentId;
+            });
+        });
+    });
+</script>
+
+<script> <!--script modal alterar a senha-->
+    document.addEventListener("DOMContentLoaded", function () {
+        const passwordButtons = document.querySelectorAll(".edit-password-btn");
+
+        passwordButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const userId = this.getAttribute("data-user-id");
+                document.getElementById("change_password_user_id").value = userId;
+            });
+        });
+    });
+</script>
+
+
+<script> <!--script do modal de detalhes do usuário-->
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".view-user-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                document.getElementById("user_name_datails").innerText = this.dataset.userName;
+                document.getElementById("user_email_datails").innerText = this.dataset.userEmail;
+                document.getElementById("user_type_datails").innerText = this.dataset.userType;
+                document.getElementById("user_department_datails").innerText = this.dataset.departmentName;
+            });
+        });
+    });
+</script>
+
+
+
 </body>
 
 </html>

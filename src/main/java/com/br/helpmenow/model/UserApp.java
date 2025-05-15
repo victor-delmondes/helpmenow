@@ -28,7 +28,7 @@ public class UserApp {
 
     public UserApp() {}
 
-    public UserApp(long id, String name, String email, String password, UserType type, Boolean active,
+    public UserApp(String name, String email, String password, UserType type, Boolean active,
                    Department department) {
         this.id = id;
         this.name = name;

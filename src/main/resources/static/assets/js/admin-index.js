@@ -1,96 +1,64 @@
-
-    const rows = Array.from(document.querySelectorAll("#tickets_body tr"));
+//Script JS para capturar o input de busca e filtrar a tabela
+document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("table_search");
-    const openFilter = document.getElementById("open_filter");
-    const progressFilter = document.getElementById("in_progress_filter");
-    const resolvedFilter = document.getElementById("closed_filter");
-    const paginationContainer = document.querySelector("#table_pagination .pagination");
+    const tableBody = document.getElementById("tickets_body");
 
-    const itemsPerPage = 10;
-    let currentPage = 1;
+    searchInput.addEventListener("input", function () {
+        const searchTerm = this.value.toLowerCase();
+        const rows = tableBody.querySelectorAll("tr");
 
-    function applyFilters() {
-    const search = searchInput.value.toLowerCase();
-    const filters = [];
-
-    if (openFilter.checked) filters.push("OPEN");
-    if (progressFilter.checked) filters.push("IN_PROGRESS");
-    if (resolvedFilter.checked) filters.push("RESOLVED");
-
-    const visibleRows = rows.filter(row => {
-    const status = row.dataset.status;
-    const title = row.dataset.title.toLowerCase();
-    const user = row.dataset.user.toLowerCase();
-    const category = row.dataset.category.toLowerCase();
-
-    const matchesStatus = filters.includes(status);
-    const matchesSearch =
-    title.includes(search) ||
-    user.includes(search) ||
-    category.includes(search);
-
-    return matchesStatus && matchesSearch;
-});
-
-    paginate(visibleRows);
-}
-
-    function paginate(filteredRows) {
-    const totalPages = Math.ceil(filteredRows.length / itemsPerPage);
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-
-    // Oculta todas
-    rows.forEach(row => row.style.display = "none");
-
-    // Mostra as da página atual
-    filteredRows.slice(start, end).forEach(row => row.style.display = "");
-
-    // Atualiza paginação
-    renderPagination(totalPages);
-}
-
-    function renderPagination(totalPages) {
-    paginationContainer.innerHTML = "";
-
-    const createPage = (i, label = null, disabled = false, active = false) => {
-    const li = document.createElement("li");
-    li.className = `page-item ${disabled ? "disabled" : ""} ${active ? "active" : ""}`;
-    const a = document.createElement("a");
-    a.className = "page-link";
-    a.href = "#";
-    a.textContent = label ?? i;
-    a.addEventListener("click", e => {
-    e.preventDefault();
-    if (!disabled) {
-    currentPage = i;
-    applyFilters();
-}
-});
-    li.appendChild(a);
-    return li;
-};
-
-    paginationContainer.appendChild(createPage(currentPage - 1, "«", currentPage === 1));
-    for (let i = 1; i <= totalPages; i++) {
-    paginationContainer.appendChild(createPage(i, null, false, i === currentPage));
-}
-    paginationContainer.appendChild(createPage(currentPage + 1, "»", currentPage === totalPages));
-}
-
-    // Eventos
-    searchInput.addEventListener("input", () => {
-    currentPage = 1;
-    applyFilters();
-});
-
-    [openFilter, progressFilter, resolvedFilter].forEach(filter => {
-    filter.addEventListener("change", () => {
-        currentPage = 1;
-        applyFilters();
+        rows.forEach(row => {
+            const rowText = row.innerText.toLowerCase();
+            const matches = rowText.includes(searchTerm);
+            row.style.display = matches ? "" : "none";
+        });
     });
 });
 
-    // Inicializar
-    applyFilters();
+//---------------------------------------------------------------------------------------------------------------
+
+//Script JS para capturar os checkbox e filtrar a tabela
+document.addEventListener("DOMContentLoaded", function () {
+    const checkboxes = document.querySelectorAll('.form-check-input');
+    const rows = document.querySelectorAll('#ticket_table_body tr');
+    const noResultsMsg = document.getElementById("no_tickets_message");
+
+    const statusMap = {
+        open_filter: "OPEN",
+        in_progress_filter: "IN_PROGRESS",
+        resolved_filter: "RESOLVED"
+    };
+
+    function filterTable() {
+        const activeStatuses = [];
+
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                const status = statusMap[checkbox.id];
+                if (status) activeStatuses.push(status);
+            }
+        });
+
+        let visibleCount = 0;
+
+        rows.forEach(row => {
+            const statusCell = row.querySelector(".ticket-status");
+            const rowStatus = statusCell?.innerText?.trim().toUpperCase();
+            const shouldShow = activeStatuses.includes(rowStatus);
+            row.style.display = shouldShow ? "" : "none";
+            if (shouldShow) visibleCount++;
+        });
+
+        // Exibe a mensagem se nenhuma linha visível
+        noResultsMsg.style.display = visibleCount === 0 ? "block" : "none";
+    }
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", filterTable);
+    });
+
+    filterTable(); // Executa assim que a página carregar
+});
+
+//---------------------------------------------------------------------------------------------------------------
 
