@@ -14,6 +14,7 @@ public class DataInitializer {
     public CommandLineRunner initData(UserRepository userRepository,
                                       DepartmentRepository departmentRepository,
                                       CategoryRepository categoryRepository,
+                                      TicketRepository ticketRepository,
                                       BCryptPasswordEncoder passwordEncoder) {
         return args -> {
             if (userRepository.findByEmail("admin@example.com").isEmpty()) {
@@ -44,9 +45,40 @@ public class DataInitializer {
                 userRepository.save(user1);
                 userRepository.save(user2);
 
+                // Chamados
+                Ticket ticket1 = new Ticket();
+                ticket1.setTitle("Erro ao acessar o sistema bancário");
+                ticket1.setDescription("Não consigo fazer login no sistema do banco interno.");
+                ticket1.setPriority(TicketPriority.HIGH);
+                ticket1.setStatus(TicketStatus.OPEN);
+                ticket1.setCreatedBy(user1);
+                ticket1.setAssignedTechnician(admin);
+                ticket1.setCategory(acesso);
+
+                Ticket ticket2 = new Ticket();
+                ticket2.setTitle("Internet intermitente no setor de atendimento");
+                ticket2.setDescription("A conexão cai a cada 10 minutos, prejudicando o atendimento.");
+                ticket2.setPriority(TicketPriority.MEDIUM);
+                ticket2.setStatus(TicketStatus.OPEN);
+                ticket2.setCreatedBy(user2);
+                ticket2.setAssignedTechnician(admin);
+                ticket2.setCategory(rede);
+
+                Ticket ticket3 = new Ticket();
+                ticket3.setTitle("Sistema trava ao gerar relatórios financeiros");
+                ticket3.setDescription("Ao gerar o relatório mensal, o sistema congela.");
+                ticket3.setPriority(TicketPriority.HIGH);
+                ticket3.setStatus(TicketStatus.IN_PROGRESS);
+                ticket3.setCreatedBy(user1);
+                ticket3.setAssignedTechnician(admin);
+                ticket3.setCategory(sistema);
+
+                ticketRepository.save(ticket1);
+                ticketRepository.save(ticket2);
+                ticketRepository.save(ticket3);
+
                 System.out.println("✅ Dados de exemplo inseridos com sucesso!");
             }
         };
     }
-
 }

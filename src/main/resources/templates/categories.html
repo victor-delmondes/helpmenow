@@ -11,117 +11,214 @@
 </head>
 
 <body id="page-top">
-    <div id="wrapper">
-        <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark">
-            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-hands-helping"></i></div>
-                    <div class="sidebar-brand-text mx-3"><span>Help Me Now</span></div>
-                </a>
-                <hr class="sidebar-divider my-0">
-                <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="index"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="users"><i class="fas fa-user-circle"></i><span>Usuários</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="departments"><i class="fas fa-archive"></i><span>Departamentos</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="categories"><i class="fas fa-list-ul"></i><span>Categorias</span></a></li>
-                </ul>
-                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+<div id="wrapper">
+    <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark">
+        <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+            <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-hands-helping"></i></div>
+            <div class="sidebar-brand-text mx-3"><span>Help Me Now</span></div>
+        </a>
+            <hr class="sidebar-divider my-0">
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+                <li class="nav-item"><a class="nav-link" href="index"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="users"><i class="fas fa-user-circle"></i><span>Usuários</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="departments"><i class="fas fa-archive"></i><span>Departamentos</span></a></li>
+                <li class="nav-item"><a class="nav-link active" href="categories"><i class="fas fa-list-ul"></i><span>Categorias</span></a></li>
+            </ul>
+            <div class="text-center d-none d-md-inline">
+                <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
             </div>
-        </nav>
-        <div class="d-flex flex-column" id="content-wrapper">
-            <div id="content">
-                <nav class="navbar navbar-expand bg-white shadow mb-4 topbar">
-                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <ul class="navbar-nav flex-nowrap ms-auto">
-                            <div class="d-none d-sm-block topbar-divider"></div>
-                            <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Username</span><i class="fas fa-userApp" style="font-size: 20px;"></i></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+        </div>
+    </nav>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+            <nav class="navbar navbar-expand bg-white shadow mb-4 topbar">
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Categorias</h3>
-                    <div class="card shadow">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Lista de categorias de chamado</p>
+                    <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                    <ul class="navbar-nav flex-nowrap ms-auto">
+                        <div class="d-none d-sm-block topbar-divider"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small"  th:text="${#authentication.principal.user.name}">Username</span><i class="fas fa-user" style="font-size: 20px;"></i></a>
+                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid">
+                <h3 class="text-dark mb-4">Categorias</h3>
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <p class="text-primary m-0 fw-bold">Lista de categorias de chamado</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 text-nowrap">
+                                <button class="btn btn-primary" id="new_categorie_button" type="button" data-bs-target="#new_category_modal" data-bs-toggle="modal">Novo categoria</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-md-end dataTables_filter" id="users_table_filter"><label class="form-label"><input type="search" id="categories_table_search" class="form-control form-control-sm" aria-controls="users_table" placeholder="Pesquisar"></label></div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 text-nowrap"><button class="btn btn-primary" id="new_categorie_button" type="button">Novo categoria</button></div>
-                                <div class="col-md-6">
-                                    <div class="text-md-end dataTables_filter" id="users_table_filter"><label class="form-label"><input type="search" id="categories_table_search" class="form-control form-control-sm" aria-controls="users_table" placeholder="Pesquisar"></label></div>
-                                </div>
-                            </div>
-                            <div class="table-responsive table mt-2" id="users_table" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0" id="dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 5%;">#</th>
-                                            <th style="width: 20%;">Nome</th>
-                                            <th style="width: 15%;">Ações</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>0</td>
-                                            <td></td>
-                                            <td class="justify-content-center align-items-center align-content-center"><a href="#" style="color: rgb(0,0,0);"><i class="fas fa-edit me-2" id="edit_icon" style="font-size: 16px;"></i></a>
-                                                <div class="form-check form-switch mt-0 pt-1" style="display: inline-block;margin: 0px;padding: 0px;height: 16px;min-height: 16px;"><input type="checkbox" id="status-switch" class="form-check-input mt-0 me-0 ms-0 pb-0 mb-0" role="switch" checked="" style="display: inline-block;"></div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td style="width: 5%;font-weight: bold;">#</td>
-                                            <td style="width: 20%;font-weight: bold;">Nome</td>
-                                            <td style="width: 10%;font-weight: bold;">Ações</td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                            <div class="row">
-                            </div>
+                        <div class="table-responsive table mt-2" id="users_table" role="grid" aria-describedby="dataTable_info">
+                            <table class="table my-0" id="dataTable">
+                                <thead>
+                                <tr>
+                                    <th style="width: 5%;">#</th>
+                                    <th style="width: 20%;">Nome</th>
+                                    <th style="width: 10%%;">Status</th>
+                                    <th style="width: 15%;">Ações</th>
+                                </tr>
+                                </thead>
+                                <tbody id="categories_table_body">
+                                <tr th:each="cat : ${categories}">
+                                    <td th:text="${cat.id}"></td>
+                                    <td th:text="${cat.name}"></td>
+                                    <td>
+                                        <span th:id="'category-status-' + ${cat.id}"
+                                              th:classappend="${cat.status} ? 'badge bg-success' : 'badge bg-danger'"
+                                              th:text="${cat.status} ? 'Ativo' : 'Inativo'">
+                                        </span>
+                                    </td>
+                                    <td class="justify-content-center align-items-center align-content-center">
+                                        <a href="#" style="color: rgb(0,0,0);" class="me-2 edit-category-btn"
+                                           th:attr="data-id=${cat.id}, data-name=${cat.name}"
+                                           data-bs-toggle="modal" data-bs-target="#edit_category_modal">
+                                            <i class="fas fa-edit me-2" id="edit_icon" style="font-size: 16px;"></i>
+                                        </a>
+                                        <div class="form-check form-switch mt-0 pt-1" style="display: inline-block;margin: 0px;padding: 0px;height: 16px;min-height: 16px;">
+                                            <input type="checkbox" id="status-switch" class="form-check-input mt-0 me-0 ms-0 pb-0 toggle-category-status" role="switch" th:attr="data-id=${cat.id}" th:checked="${cat.status}" style="display: inline-block;">
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td style="width: 5%;font-weight: bold;">#</td>
+                                    <td style="width: 20%;font-weight: bold;">Nome</td>
+                                    <td style="width: 10%;font-weight: bold;">Ações</td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="row">
                         </div>
                     </div>
                 </div>
             </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © HelpMeNow 2025</span></div>
-                </div>
-            </footer>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>Copyright © HelpMeNow 2025</span></div>
+            </div>
+        </footer>
     </div>
-    <div class="modal fade" role="dialog" tabindex="-1" id="new_category_modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Nova categoria</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="new_category_form" class="userApp"><input class="form-control form-control-userApp mb-0" type="text" id="category_name_input" placeholder="Nome"></form>
-                </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button><button class="btn btn-primary" type="button">Salvar</button></div>
+    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+
+
+<div class="modal fade" role="dialog" tabindex="-1" id="new_category_modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Nova categoria</h4>
+                <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="new_category_form" class="user" method="post" action="/admin/categories/create">
+                    <input class="form-control form-control-user mb-0" type="text" id="category_name_input" name="category_name_input" placeholder="Nome" required>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button>
+                <button class="btn btn-primary" type="submit" form="new_category_form">Salvar</button>
             </div>
         </div>
     </div>
-    <div class="modal fade" role="dialog" tabindex="-1" id="edit_category_modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Nova categoria</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="edit_category_form" class="userApp"><input class="form-control form-control-userApp mb-0" type="text" id="edit_category_name_input" placeholder="Nome"></form>
-                </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button><button class="btn btn-primary" type="button">Salvar</button></div>
+</div>
+
+
+<div class="modal fade" role="dialog" tabindex="-1" id="edit_category_modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Editar categoria</h4>
+                <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit_category_form" class="user" method="post" action="/admin/categories/update">
+                    <input type="hidden" id="edit_category_id_input" name="edit_category_id_input">
+                    <input class="form-control form-control-user mb-0" type="text" id="edit_category_name_input" name="edit_category_name_input" placeholder="Nome">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button>
+                <button class="btn btn-primary" type="submit" form="edit_category_form">Salvar</button>
             </div>
         </div>
     </div>
-    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/assets/js/theme.js"></script>
+</div>
+
+
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/js/theme.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // Preenche o modal de edição
+        document.querySelectorAll(".edit-category-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                document.getElementById("edit_category_name_input").value = this.dataset.name;
+                document.getElementById("edit_category_id_input").value = this.dataset.id;
+            });
+        });
+
+        // Alterna status via switch
+        document.querySelectorAll(".toggle-category-status").forEach(toggle => {
+            toggle.addEventListener("change", function () {
+                const categoryId = this.dataset.id;
+
+                fetch("/admin/categories/toggle-status", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({ categoryId: categoryId })
+                })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Erro ao atualizar status");
+                        return response.text();
+                    })
+                    .then(status => {
+                        const badge = document.getElementById("category-status-" + categoryId);
+                        if (badge) {
+                            badge.innerText = status;
+                            badge.className = status === "Ativo" ? "badge bg-success" : "badge bg-danger";
+                        }
+                    })
+                    .catch(err => {
+                        alert("Erro ao atualizar status: " + err.message);
+                        this.checked = !this.checked;
+                    });
+            });
+        });
+
+        // Filtro de pesquisa
+        const searchInput = document.getElementById("categories_table_search");
+        const tableBody = document.getElementById("categories_table_body");
+
+        searchInput.addEventListener("input", function () {
+            const searchTerm = this.value.toLowerCase();
+            const rows = tableBody.querySelectorAll("tr");
+
+            rows.forEach(row => {
+                const rowText = row.innerText.toLowerCase();
+                const matches = rowText.includes(searchTerm);
+                row.style.display = matches ? "" : "none";
+            });
+        });
+
+    });
+</script>
+
 </body>
 
 </html>

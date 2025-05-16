@@ -23,7 +23,7 @@ public class CategoryService {
         return categoryRepository.findById(id).orElse(null);
     }
 
-    public Category save(Category category) {
+    public Category create(Category category) {
         return categoryRepository.save(category);
     }
 
@@ -31,10 +31,4 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public void toggleStatus(Long id) {
-        categoryRepository.findById(id).ifPresent(c -> {
-            c.setStatus(!c.isStatus());
-            categoryRepository.save(c);
-        });
-    }
 }

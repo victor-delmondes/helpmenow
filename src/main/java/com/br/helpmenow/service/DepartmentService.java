@@ -23,18 +23,12 @@ public class DepartmentService {
         return departmentRepository.findById(id).orElse(null);
     }
 
-    public Department save(Department department) {
-        return departmentRepository.save(department);
-    }
-
     public Department update(Department department) {
         return departmentRepository.save(department);
     }
 
-    public void toggleStatus(Long id) {
-        departmentRepository.findById(id).ifPresent(d -> {
-            d.setStatus(!d.isStatus());
-            departmentRepository.save(d);
-        });
+    public Department create(Department department) {
+        return departmentRepository.save(department);
     }
+
 }

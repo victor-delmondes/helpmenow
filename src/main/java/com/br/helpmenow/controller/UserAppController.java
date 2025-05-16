@@ -51,7 +51,7 @@ public class UserAppController {
             user.setName(name);
             user.setType(UserType.valueOf(userType));
             user.setDepartment(department);
-            user.setActive(true); // Ativo por padrão
+            user.setActive(true);
 
             userAppService.createUser(user);
             model.addAttribute("success", "Usuário criado com sucesso!");

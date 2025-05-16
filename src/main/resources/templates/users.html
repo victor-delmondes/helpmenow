@@ -37,8 +37,8 @@
                     <ul class="navbar-nav flex-nowrap ms-auto">
                         <div class="d-none d-sm-block topbar-divider"></div>
                         <li class="nav-item dropdown no-arrow">
-                            <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Username</span><i class="fas fa-userApp" style="font-size: 20px;"></i></a>
-                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a></div>
+                            <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small" th:text="${#authentication.principal.user.name}">Username</span><i class="fas fa-user" style="font-size: 20px;"></i></a>
+                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a></div>
                             </div>
                         </li>
                     </ul>
@@ -73,7 +73,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="users_table_body">
-                                <tr th:each="user : ${users}" th:attr="id='user-${user.id}'">
+                                <tr th:each="user : ${users}" th:attr="id='user-${user.id}'"> <!--não lembro do que era isso, mas tambem não vou tirar (:-->
                                     <td th:text="${user.id}"></td>
                                     <td th:text="${user.name}"></td>
                                     <td th:text="${user.email}"></td>
@@ -118,11 +118,13 @@
                                         </a>
 
 
-                                        <div class="form-check form-switch d-inline-block">
+                                        <div class="form-check form-switch mt-0 pt-1" style="display: inline-block;margin: 0px;padding: 0px;height: 16px;min-height: 16px;">
                                             <input type="checkbox"
-                                                   class="form-check-input toggle-user-status"
+                                                   role="switch"
+                                                   class="form-check-input mt-0 me-0 ms-0 pb-0 mb-0 toggle-user-status"
                                                    th:attr="data-user-id=${user.id}"
-                                                   th:checked="${user.active}">
+                                                   th:checked="${user.active}"
+                                                   style="display: inline-block;">
                                         </div>
                                     </td>
                                 </tr>
@@ -163,15 +165,15 @@
                 <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form id="new_user_form" class="userApp" th:action="@{/admin/users/create}" method="post">
-                    <input class="form-control form-control-userApp mb-3" type="email" id="user_email_input" placeholder="Email" name="user_email_input" required="">
-                    <input class="form-control form-control-userApp mb-3" type="text" id="user_name_input" placeholder="Nome completo" name="user_name_input" required="">
-                    <input class="form-control form-control-userApp mb-3" type="password" id="password_name_input" name="password_name_input" placeholder="Senha" required="">
-                    <select class="form-select form-control-userApp mb-3" id="department_user_select" name="department_user_select" required="">
+                <form id="new_user_form" class="user" th:action="@{/admin/users/create}" method="post">
+                    <input class="form-control form-control-user mb-3" type="email" id="user_email_input" placeholder="Email" name="user_email_input" required="">
+                    <input class="form-control form-control-user mb-3" type="text" id="user_name_input" placeholder="Nome completo" name="user_name_input" required="">
+                    <input class="form-control form-control-user mb-3" type="password" id="password_name_input" name="password_name_input" placeholder="Senha" required="">
+                    <select class="form-select form-control-user mb-3" id="department_user_select" name="department_user_select" required="">
                     <optgroup label="Departamento">
                         <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
                     </optgroup>
-                </select><select class="form-select form-control-userApp mb-3" id="type_user_select" name="type_user_select" required="">
+                </select><select class="form-select form-control-user mb-3" id="type_user_select" name="type_user_select" required="">
                     <optgroup label="Tipo">
                         <option value="ADMIN">ADMIN</option>
                         <option value="CLIENT">CLIENTE</option>
@@ -195,15 +197,15 @@
                 <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form id="edit_user_form" class="userApp" th:action="@{/admin/users/update}" method="post">
+                <form id="edit_user_form" class="user" th:action="@{/admin/users/update}" method="post">
                     <input type="hidden" name="edit_user_id_input" id="edit_user_id_input">
-                    <input class="form-control form-control-userApp mb-3" type="email" id="edit_user_email_input" placeholder="Email" name="edit_user_email_input" required="">
-                    <input class="form-control form-control-userApp mb-3" type="text" id="edit_user_name_input" placeholder="Nome completo" name="edit_user_name_input" required="">
-                    <select class="form-select form-control-userApp mb-3" id="edit_department_user_select" name="edit_department_user_select" required="">
+                    <input class="form-control form-control-user mb-3" type="email" id="edit_user_email_input" placeholder="Email" name="edit_user_email_input" required="">
+                    <input class="form-control form-control-user mb-3" type="text" id="edit_user_name_input" placeholder="Nome completo" name="edit_user_name_input" required="">
+                    <select class="form-select form-control-user mb-3" id="edit_department_user_select" name="edit_department_user_select" required="">
                         <optgroup label="Departamento">
                             <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
                         </optgroup>
-                    </select><select class="form-select form-control-userApp mb-3" id="edit_type_user_select" name="edit_type_user_select" required="">
+                    </select><select class="form-select form-control-user mb-3" id="edit_type_user_select" name="edit_type_user_select" required="">
                         <optgroup label="Tipo">
                             <option value="ADMIN">ADMIN</option>
                             <option value="CLIENT">CLIENTE</option>
@@ -256,9 +258,9 @@
                 <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form id="change_password_form" class="userApp" method="post" action="/admin/users/change-password">
+                <form id="change_password_form" class="user" method="post" action="/admin/users/change-password">
                     <input type="hidden" name="user_id" id="change_password_user_id">
-                    <input class="form-control form-control-userApp mb-0" type="password" id="edit_password_name_input" name="edit_password_input" placeholder="Senha" required="">
+                    <input class="form-control form-control-user mb-0" type="password" id="edit_password_name_input" name="edit_password_input" placeholder="Senha" required="">
                 </form>
             </div>
             <div class="modal-footer">

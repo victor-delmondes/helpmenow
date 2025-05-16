@@ -2,6 +2,7 @@ package com.br.helpmenow.service;
 
 import com.br.helpmenow.model.Ticket;
 import com.br.helpmenow.model.TicketStatus;
+import com.br.helpmenow.model.UserApp;
 import com.br.helpmenow.repository.TicketRepository;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,10 @@ public class TicketService {
 
     public Ticket findById(Long id) {
         return ticketRepository.findById(id).orElse(null);
+    }
+
+    public List<Ticket>GetAllByUser(UserApp user) {
+        return ticketRepository.findByCreatedBy(user);
     }
 
 }
