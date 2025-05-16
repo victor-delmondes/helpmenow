@@ -6,101 +6,177 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Page Not Found - HelpMeNow</title>
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
 </head>
 
 <body id="page-top">
-    <div id="wrapper">
-        <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark">
-            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-hands-helping"></i></div>
-                    <div class="sidebar-brand-text mx-3"><span>Help Me Now</span></div>
-                </a>
-                <hr class="sidebar-divider my-0">
-                <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="index"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="users"><i class="fas fa-user-circle"></i><span>Usuários</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="departments"><i class="fas fa-archive"></i><span>Departamentos</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="categories"><i class="fas fa-list-ul"></i><span>Categorias</span></a></li>
-                </ul>
-                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+<div id="wrapper">
+    <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark">
+        <div class="container-fluid d-flex flex-column p-0"><a
+                class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+            <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-hands-helping"></i></div>
+            <div class="sidebar-brand-text mx-3"><span>Help Me Now</span></div>
+        </a>
+            <hr class="sidebar-divider my-0">
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+                <li class="nav-item"><a class="nav-link" href="/client/index"
+                                        th:if="${#authentication.principal.user.type.name() == 'CLIENT'}"><i
+                        class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/index"
+                                        th:if="${#authentication.principal.user.type.name() == 'ADMIN'}"><i
+                        class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="users"
+                                        th:if="${#authentication.principal.user.type.name() == 'ADMIN'}"><i
+                        class="fas fa-user-circle"></i><span>Usuários</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="departments"
+                                        th:if="${#authentication.principal.user.type.name() == 'ADMIN'}"><i
+                        class="fas fa-archive"></i><span>Departamentos</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="categories"
+                                        th:if="${#authentication.principal.user.type.name() == 'ADMIN'}"><i
+                        class="fas fa-list-ul"></i><span>Categorias</span></a></li>
+            </ul>
+            <div class="text-center d-none d-md-inline">
+                <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
             </div>
-        </nav>
-        <div class="d-flex flex-column" id="content-wrapper">
-            <div id="content">
-                <nav class="navbar navbar-expand bg-white shadow mb-4 topbar">
-                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <ul class="navbar-nav flex-nowrap ms-auto">
-                            <div class="d-none d-sm-block topbar-divider"></div>
-                            <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small"  th:text="${#authentication.principal.user.name}">Username</span><i class="fas fa-user" style="font-size: 20px;"></i></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+        </div>
+    </nav>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+            <nav class="navbar navbar-expand bg-white shadow mb-4 topbar">
                 <div class="container-fluid">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <div class="row">
-                                <div class="col">
-                                    <h6 class="text-primary m-0 fw-bold" style="display: inline-block;">Chamado #<span class="fw-bold text-primary m-0" id="ticket_number-1">---</span></h6>
+                    <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i
+                            class="fas fa-bars"></i></button>
+                    <ul class="navbar-nav flex-nowrap ms-auto">
+                        <div class="d-none d-sm-block topbar-divider"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link"
+                                                                       aria-expanded="false" data-bs-toggle="dropdown"
+                                                                       href="#"><span
+                                    class="d-none d-lg-inline me-2 text-gray-600 small"
+                                    th:text="${#authentication.principal.user.name}">Username</span><i
+                                    class="fas fa-user" style="font-size: 20px;"></i></a>
+                                <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a
+                                        class="dropdown-item" href="/logout"><i
+                                        class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
                                 </div>
-                                <div class="col text-center">
-                                    <h6 class="text-primary m-0 fw-bold" style="display: inline-block;">Prioridade:&nbsp;<span class="text-uppercase fw-bold text-primary m-0" id="ticket_priority">---</span></h6>
-                                </div>
-                                <div class="col" id="em_andamento_icon" style="text-align: right;"><span class="text-uppercase fw-bold text-primary m-0" id="ticket_status">---</span><i class="fas fa-clock text-warning ps-0 ms-2" style="font-size: 16px;"></i><i class="fas fa-exclamation-circle text-danger ps-0 ms-2" id="em_aberto_icon" style="font-size: 17px;"></i><i class="fas fa-check-circle text-success ps-0 ms-2" id="concluido_icon" style="font-size: 16px;"></i></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="text-primary m-0 fw-bold" style="display: inline-block;">Chamado #<span
+                                        class="fw-bold text-primary m-0" id="ticket_number-1"
+                                        th:text="${ticket.id}">---</span></h6>
+                            </div>
+                            <div class="col text-center">
+                                <h6 class="text-primary m-0 fw-bold" style="display: inline-block;">Prioridade:&nbsp;
+                                    <span th:switch="${ticket.priority.name()}">
+                                        <span th:case="'LOW'" class="badge bg-success">Baixa</span>
+                                        <span th:case="'MEDIUM'" class="badge bg-warning text-dark">Média</span>
+                                        <span th:case="'HIGH'" class="badge bg-danger">Alta</span>
+                                        <span th:case="*">Desconhecida</span>
+                                    </span>
+                                </h6>
+                            </div>
+                            <div class="col" id="em_andamento_icon" style="text-align: right;">
+                                <h6 class="text-primary m-0 fw-bold" style="display: inline-block;">Status:
+                                    <span th:switch="${ticket.status.name()}">
+                                        <span th:case="'OPEN'">Em aberto<i class="fas fa-clock text-danger ps-0 ms-2"
+                                                                           style="font-size: 16px;"></i></span>
+                                        <span th:case="'IN_PROGRESS'">Andamento <i
+                                                class="fas fa-clock text-warning ps-0 ms-2"
+                                                style="font-size: 16px;"></i></span>
+                                        <span th:case="'RESOLVED'">Resolvido <i
+                                                class="fas fa-clock text-success ps-0 ms-2"
+                                                style="font-size: 16px;"></i></span>
+                                        <span th:case="*">Desconhecido</span>
+                                    </span>
+                                </h6>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <h3 id="ticket_title" class="mb-0">Titulo</h3>
-                            <p class="m-0 mb-2">Categoria:&nbsp;<span id="ticket_category">---</span></p>
-                            <p id="ticket_description" class="m-0">Descrição</p>
-                            <hr>
-                            <p class="mb-0">Solicitante:&nbsp;<span id="ticket_user">---</span></p>
-                            <p class="mb-0">Atribuído a:&nbsp;<span id="ticket_technical">---</span></p>
-                            <p class="mb-0">Data de abertura:&nbsp;<span id="ticket_date">---</span></p>
-                            <div class="col" style="text-align: right;"><button class="btn btn-primary mt-3 me-3" id="end_ticket_button" type="button" style="display: inline-block;">Encerrar chamado</button><button class="btn btn-primary mt-3 me-3" id="start_ticket_button" type="button" style="display: inline-block;">Iniciar chamado</button><button class="btn btn-primary mt-3" id="make_comment" type="button" style="display: inline-block;" data-bs-target="#modal-comment" data-bs-toggle="modal">Comentar</button></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 id="ticket_title" class="mb-0" th:text="${ticket.title}">Titulo</h4>
+                        <p class="m-0 mb-2">Categoria:&nbsp;<span id="ticket_category"
+                                                                  th:text="${ticket.category.name}">---</span></p>
+                        <p id="ticket_description" class="m-0" th:text="${ticket.description}">Descrição</p>
+                        <hr>
+                        <p class="mb-0">Solicitante:&nbsp;<span id="ticket_user"
+                                                                th:text="${ticket.createdBy.name}">---</span></p>
+                        <p class="mb-0">Atribuído a:&nbsp;<span th:if="${ticket.assignedTechnician != null}"
+                                                                th:text="${ticket.assignedTechnician.name}"></span>
+                            <span th:unless="${ticket.assignedTechnician != null}">Não atribuído</span></p>
+                        <p class="mb-0">Data de abertura:&nbsp;<span id="ticket_date"
+                                                                     th:text="${#temporals.format(ticket.createdAt, 'dd/MM/yyyy HH:mm')}">---</span>
+                        </p>
+                        <div class="col" style="text-align: right;">
+                                    <button class="btn btn-primary mt-3 me-3" id="end_ticket_button" type="button"
+                                            style="display: inline-block;"
+                                            th:if="${ticket.assignedTechnician != null and #authentication.principal.user.type.name() == 'ADMIN'}">
+                                        Encerrar chamado
+                                    </button>
+                            <button class="btn btn-primary mt-3 me-3" id="start_ticket_button" type="button"
+                                    style="display: inline-block;"
+                                    th:if="${#authentication.principal.user.type.name() == 'ADMIN' and ticket.assignedTechnician == null}">
+                                Iniciar chamado
+                            </button>
+                            <button class="btn btn-primary mt-3" id="make_comment" type="button"
+                                    style="display: inline-block;" data-bs-target="#modal-comment"
+                                    data-bs-toggle="modal">Comentar
+                            </button>
                         </div>
                     </div>
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="text-primary m-0 fw-bold" style="display: inline-block;">Comentários</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="card bg-light mb-2" id="comment_card">
-                                <div class="card-body mb-0">
-                                    <h5 class="card-title mb-0" id="comment_user" style="font-weight: bold;">userApp</h5>
-                                    <hr class="mt-1">
-                                    <p class="card-text" id="comment">comment</p>
-                                </div>
+                </div>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="text-primary m-0 fw-bold" style="display: inline-block;">Comentários</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="card bg-light mb-2" id="comment_card">
+                            <div class="card-body mb-0">
+                                <h5 class="card-title mb-0" id="comment_user" style="font-weight: bold;">userApp</h5>
+                                <hr class="mt-1">
+                                <p class="card-text" id="comment">comment</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © HelpMeNow 2025</span></div>
-                </div>
-            </footer>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>Copyright © HelpMeNow 2025</span></div>
+            </div>
+        </footer>
     </div>
-    <div class="modal fade" role="dialog" tabindex="-1" id="modal-comment">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Novo comentário</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body"><textarea class="form-control-lg" id="comment_input" style="width: 100%;color: var(--bs-secondary);font-size: 16px;min-height: 250px;"></textarea></div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button><button class="btn btn-primary" id="send_comment_button" type="button">Enviar</button></div>
+    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+<div class="modal fade" role="dialog" tabindex="-1" id="modal-comment">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Novo comentário</h4>
+                <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body"><textarea class="form-control-lg" id="comment_input"
+                                              style="width: 100%;color: var(--bs-secondary);font-size: 16px;min-height: 250px;"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button>
+                <button class="btn btn-primary" id="send_comment_button" type="button">Enviar</button>
             </div>
         </div>
     </div>
-    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/assets/js/theme.js"></script>
+</div>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/js/theme.js"></script>
 </body>
 
 </html>

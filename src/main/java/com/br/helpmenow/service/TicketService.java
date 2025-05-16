@@ -37,4 +37,8 @@ public class TicketService {
         return ticketRepository.findByCreatedBy(user);
     }
 
+    public Ticket createTicket(Ticket ticket) {
+        return ticketRepository.save(ticket);
+    }
+
 }

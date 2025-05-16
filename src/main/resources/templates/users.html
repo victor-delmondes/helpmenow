@@ -173,7 +173,8 @@
                     <optgroup label="Departamento">
                         <option th:each="dep : ${departments}" th:value="${dep.id}" th:text="${dep.name}"></option>
                     </optgroup>
-                </select><select class="form-select form-control-user mb-3" id="type_user_select" name="type_user_select" required="">
+                </select>
+                    <select class="form-select form-control-user mb-3" id="type_user_select" name="type_user_select" required="">
                     <optgroup label="Tipo">
                         <option value="ADMIN">ADMIN</option>
                         <option value="CLIENT">CLIENTE</option>

@@ -52,7 +52,6 @@ public class DataInitializer {
                 ticket1.setPriority(TicketPriority.HIGH);
                 ticket1.setStatus(TicketStatus.OPEN);
                 ticket1.setCreatedBy(user1);
-                ticket1.setAssignedTechnician(admin);
                 ticket1.setCategory(acesso);
 
                 Ticket ticket2 = new Ticket();
@@ -61,7 +60,6 @@ public class DataInitializer {
                 ticket2.setPriority(TicketPriority.MEDIUM);
                 ticket2.setStatus(TicketStatus.OPEN);
                 ticket2.setCreatedBy(user2);
-                ticket2.setAssignedTechnician(admin);
                 ticket2.setCategory(rede);
 
                 Ticket ticket3 = new Ticket();

@@ -205,6 +205,9 @@
     </div>
     <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 </div>
+
+
+
 <div class="modal fade" role="dialog" tabindex="-1" id="new_ticket_modal">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -213,36 +216,40 @@
                 <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form class="user">
+                <form class="user" id="new_ticket_form" th:action="@{/client/index/create}" method="post">
                     <div class="row">
-                        <div class="col"><input class="form-control form-control-user mb-3" type="text" id="ticket_title_input" name="ticket_title_input" placeholder="Titulo"></div>
+                        <div class="col">
+                            <input class="form-control form-control-user mb-3" type="text" id="ticket_title_input" name="ticket_title_input" placeholder="Titulo"></div>
                     </div>
                     <div class="row">
-                        <div class="col"><select class="form-select form-control-user mb-3">
+                        <div class="col"><select class="form-select form-control-user mb-3" name="ticket_priority_select">
                             <optgroup label="Prioridade">
-                                <option value="BAIXA" selected="">Baixa</option>
-                                <option value="MEDIA">Média</option>
-                                <option value="ALTA">Alta</option>
+                                <option value="LOW" selected="">Baixa</option>
+                                <option value="MEDIUM">Média</option>
+                                <option value="HIGH">Alta</option>
                             </optgroup>
                         </select></div>
-                        <div class="col"><select class="form-select form-control-user mb-3">
-                            <optgroup label="Departamento">
-                                <option value="---" selected="">---</option>
+                        <div class="col"><select class="form-select form-control-user mb-3" name="ticket_category_select">
+                            <optgroup label="Categoria">
+                                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
                             </optgroup>
                         </select></div>
                     </div>
                     <div class="row">
-                        <div class="col"><textarea class="form-control pt-3 pb-3 ps-3 pe-3" style="width: 100%;height: 250px;border-radius: 30px;font-size: 12.8px;" placeholder="Descrição do problema"></textarea></div>
+                        <div class="col"><textarea class="form-control pt-3 pb-3 ps-3 pe-3" style="width: 100%;height: 250px;border-radius: 30px;font-size: 12.8px;" placeholder="Descrição do problema" id="ticket_description_input" name="ticket_description_input"></textarea></div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-light" type="button" data-bs-dismiss="modal">Fechar</button>
-                <button class="btn btn-primary" type="button">Criar</button>
+                <button class="btn btn-primary" type="submit" form="new_ticket_form">Criar</button>
             </div>
         </div>
     </div>
 </div>
+
+
+
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="/assets/js/theme.js"></script>
 <script src="/assets/js/admin-index.js"></script>
