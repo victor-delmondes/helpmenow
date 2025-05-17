@@ -1,6 +1,7 @@
 package com.br.helpmenow.security;
 
 import com.br.helpmenow.model.UserApp;
+import com.br.helpmenow.model.UserType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -54,4 +55,9 @@ public class CustomUserDetails implements UserDetails {
     public UserApp getUser() {
         return userApp;
     }
+
+    public UserType getUserType() {
+        return userApp.getType();
+    }
+
 }

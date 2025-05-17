@@ -4,6 +4,7 @@ import com.br.helpmenow.factory.CommentFactory;
 import com.br.helpmenow.factory.TicketFactory;
 import com.br.helpmenow.model.*;
 import com.br.helpmenow.repository.TicketRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -43,6 +44,7 @@ public class TicketService {
         commentService.createComment(comment);
     }
 
+    @PreAuthorize("@ticketSecurity.canAccessTicket(#ticketId)")
     public Map<String, Object> getTicketWithComments(Long ticketId) {
         Ticket ticket = findById(ticketId);
         List<Comment> comments = commentService.findByTicketId(ticketId);
