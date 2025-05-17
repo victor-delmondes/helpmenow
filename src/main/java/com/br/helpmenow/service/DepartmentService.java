@@ -20,15 +20,27 @@ public class DepartmentService {
     }
 
     public Department findById(Long id) {
-        return departmentRepository.findById(id).orElse(null);
+        return departmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
     }
 
-    public Department update(Department department) {
-        return departmentRepository.save(department);
+    public void createNewDepartment(String name, String extension, String location) {
+        Department dep = new Department(name, extension, location);
+        departmentRepository.save(dep);
     }
 
-    public Department create(Department department) {
-        return departmentRepository.save(department);
+    public void updateDepartment(Long id, String name, String extension, String location) {
+        Department dep = findById(id);
+        dep.setName(name);
+        dep.setExtension(extension);
+        dep.setLocation(location);
+        departmentRepository.save(dep);
+    }
+
+    public boolean toggleStatus(Long id) {
+        Department dep = findById(id);
+        dep.setStatus(!dep.isStatus());
+        departmentRepository.save(dep);
+        return dep.isStatus();
     }
 
 }

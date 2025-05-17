@@ -2,12 +2,15 @@ package com.br.helpmenow.model;
 
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 @Entity
 public class UserApp {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue
+    @Column(columnDefinition = "UUID", updatable = false, nullable = false)
+    private UUID id;
 
     private String name;
 
@@ -39,11 +42,11 @@ public class UserApp {
         this.department = department;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

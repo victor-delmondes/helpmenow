@@ -1,6 +1,5 @@
 package com.br.helpmenow.controller;
 
-import com.br.helpmenow.model.Department;
 import com.br.helpmenow.service.DepartmentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +31,7 @@ public class DepartmentController {
             @RequestParam("department_location_input") String location,
             RedirectAttributes redirectAttributes) {
         try {
-            Department dep = new Department(name, extension, location);
-            departmentService.create(dep);
+            departmentService.createNewDepartment(name, extension, location);
             redirectAttributes.addFlashAttribute("success", "Departamento criado com sucesso!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Erro ao criar departamento: " + e.getMessage());
@@ -49,11 +47,7 @@ public class DepartmentController {
             @RequestParam("edit_department_location_input") String location,
             RedirectAttributes redirectAttributes) {
         try {
-            Department dep = departmentService.findById(id);
-            dep.setName(name);
-            dep.setExtension(extension);
-            dep.setLocation(location);
-            departmentService.update(dep);
+            departmentService.updateDepartment(id, name, extension, location);
             redirectAttributes.addFlashAttribute("success", "Departamento atualizado com sucesso!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Erro ao atualizar departamento: " + e.getMessage());
@@ -65,15 +59,13 @@ public class DepartmentController {
     @ResponseBody
     public ResponseEntity<String> toggleDepartmentStatus(@RequestParam Long departmentId) {
         try {
-            Department dep = departmentService.findById(departmentId);
-            dep.setStatus(!dep.isStatus());
-            departmentService.update(dep);
-
-            return ResponseEntity.ok(dep.isStatus() ? "Ativo" : "Inativo");
+            boolean active = departmentService.toggleStatus(departmentId);
+            return ResponseEntity.ok(active ? "Ativo" : "Inativo");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao atualizar: " + e.getMessage());
         }
     }
+
 
 }

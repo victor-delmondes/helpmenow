@@ -1,16 +1,16 @@
 package com.br.helpmenow.controller;
 
-import com.br.helpmenow.model.Department;
-import com.br.helpmenow.model.UserApp;
-import com.br.helpmenow.model.UserType;
+
 import com.br.helpmenow.service.DepartmentService;
 import com.br.helpmenow.service.UserAppService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin/users")
@@ -18,12 +18,11 @@ public class UserAppController {
 
     private final UserAppService userAppService;
     private final DepartmentService departmentService;
-    private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserAppController(UserAppService userAppService, DepartmentService departmentService, BCryptPasswordEncoder passwordEncoder) {
+    public UserAppController(UserAppService userAppService, DepartmentService departmentService) {
         this.userAppService = userAppService;
         this.departmentService = departmentService;
-        this.passwordEncoder = passwordEncoder;
+
     }
 
     @GetMapping
@@ -40,87 +39,61 @@ public class UserAppController {
             @RequestParam("user_name_input") String name,
             @RequestParam("department_user_select") Long departmentId,
             @RequestParam("type_user_select") String userType,
-            Model model
+            RedirectAttributes redirectAttributes
     ) {
         try {
-            Department department = departmentService.findById(departmentId);
-
-            UserApp user = new UserApp();
-            user.setEmail(email);
-            user.setPassword(passwordEncoder.encode(password));
-            user.setName(name);
-            user.setType(UserType.valueOf(userType));
-            user.setDepartment(department);
-            user.setActive(true);
-
-            userAppService.createUser(user);
-            model.addAttribute("success", "Usuário criado com sucesso!");
+            userAppService.createNewUser(email, password, name, departmentId, userType);
+            redirectAttributes.addAttribute("success", "Usuário criado com sucesso!");
         } catch (Exception e) {
-            model.addAttribute("error", "Erro ao criar usuário: " + e.getMessage());
+            redirectAttributes.addAttribute("error", "Erro ao criar usuário: " + e.getMessage());
         }
-
         return "redirect:/admin/users";
     }
 
 
     @PostMapping("/update")
     public String updateUser(
-            @RequestParam("edit_user_id_input") Long id,
+            @RequestParam("edit_user_id_input") UUID id,
             @RequestParam("edit_user_email_input") String email,
             @RequestParam("edit_user_name_input") String name,
             @RequestParam("edit_department_user_select") Long departmentId,
             @RequestParam("edit_type_user_select") String userType,
-            Model model
+            RedirectAttributes redirectAttributes
     ) {
         try {
-            UserApp user = userAppService.findById(id);
-            Department department = departmentService.findById(departmentId);
-
-            user.setEmail(email);
-            user.setName(name);
-            user.setType(UserType.valueOf(userType));
-            user.setDepartment(department);
-
-            userAppService.updateUser(user);
-            model.addAttribute("success", "Usuário atualizado com sucesso!");
+            userAppService.updateUserDetails(id, email, name, departmentId, userType);
+            redirectAttributes.addAttribute("success", "Usuário atualizado com sucesso!");
         } catch (Exception e) {
-            model.addAttribute("error", "Erro ao atualizar usuário: " + e.getMessage());
+            redirectAttributes.addAttribute("error", "Erro ao atualizar usuário: " + e.getMessage());
         }
-
         return "redirect:/admin/users";
     }
 
+
     @PostMapping("/change-password")
-    public String changePassword(
-            @RequestParam("user_id") Long userId,
-            @RequestParam("edit_password_input") String newPassword,
-            Model model
-    ) {
+    public String changePassword
+            (@RequestParam("change_password_user_id") UUID userId,
+             @RequestParam("edit_password_input") String newPassword,
+             RedirectAttributes redirectAttributes) {
         try {
-            UserApp user = userAppService.findById(userId);
-            user.setPassword(passwordEncoder.encode(newPassword));
-            userAppService.updateUser(user);
-
-            model.addAttribute("success", "Senha alterada com sucesso!");
+            userAppService.updateUserPassword(userId, newPassword);
+            redirectAttributes.addAttribute("success", "Senha alterada com sucesso!");
         } catch (Exception e) {
-            model.addAttribute("error", "Erro ao alterar senha: " + e.getMessage());
+            redirectAttributes.addAttribute("error", "Erro ao alterar senha: " + e.getMessage());
         }
-
         return "redirect:/admin/users";
     }
 
     @PostMapping("/toggle-status")
     @ResponseBody
-    public ResponseEntity<String> toggleUserStatus(@RequestParam Long userId) {
+    public ResponseEntity<String> toggleUserStatus(@RequestParam UUID userId) {
         try {
-            UserApp user = userAppService.findById(userId);
-            user.setActive(!user.isActive());
-            userAppService.updateUser(user);
-
-            return ResponseEntity.ok(user.isActive() ? "Ativo" : "Inativo");
+            boolean active = userAppService.toggleUserStatus(userId);
+            return ResponseEntity.ok(active ? "Ativo" : "Inativo");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao atualizar: " + e.getMessage());
         }
     }
+
 }

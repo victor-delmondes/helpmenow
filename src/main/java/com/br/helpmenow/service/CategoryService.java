@@ -20,15 +20,27 @@ public class CategoryService {
     }
 
     public Category findById(Long id) {
-        return categoryRepository.findById(id).orElse(null);
+        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
     }
 
-    public Category create(Category category) {
-        return categoryRepository.save(category);
+    public void createNewCategory(String name) {
+        Category category = new Category();
+        category.setName(name);
+        category.setStatus(true);
+        categoryRepository.save(category);
     }
 
-    public Category update(Category category) {
-        return categoryRepository.save(category);
+    public void updateCategory(Long id, String name) {
+        Category category = findById(id);
+        category.setName(name);
+        categoryRepository.save(category);
+    }
+
+    public boolean toggleStatus(Long id) {
+        Category category = findById(id);
+        category.setStatus(!category.isStatus());
+        categoryRepository.save(category);
+        return category.isStatus();
     }
 
 }

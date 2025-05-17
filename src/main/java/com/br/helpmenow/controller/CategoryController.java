@@ -1,6 +1,5 @@
 package com.br.helpmenow.controller;
 
-import com.br.helpmenow.model.Category;
 import com.br.helpmenow.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,10 +29,7 @@ public class CategoryController {
             @RequestParam("category_name_input") String name,
             RedirectAttributes redirectAttributes) {
         try {
-            Category cat = new Category();
-            cat.setName(name);
-            cat.setStatus(true);
-            categoryService.create(cat);
+            categoryService.createNewCategory(name);
             redirectAttributes.addFlashAttribute("success", "Categoria criada com sucesso!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Erro ao criar categoria: " + e.getMessage());
@@ -47,11 +43,9 @@ public class CategoryController {
             @RequestParam("edit_category_name_input") String name,
             RedirectAttributes redirectAttributes) {
         try {
-            Category cat = categoryService.findById(id);
-            cat.setName(name);
-            categoryService.update(cat);
+            categoryService.updateCategory(id, name);
             redirectAttributes.addFlashAttribute("success", "Categoria atualizada com sucesso!");
-        }catch (Exception e) {
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Erro ao atualizar categoria: " + e.getMessage());
         }
         return "redirect:/admin/categories";
@@ -61,14 +55,13 @@ public class CategoryController {
     @ResponseBody
     public ResponseEntity<String> toggleCategoryStatus(@RequestParam Long categoryId) {
         try {
-            Category cat = categoryService.findById(categoryId);
-            cat.setStatus(!cat.isStatus());
-            categoryService.update(cat);
-            return ResponseEntity.ok(cat.isStatus() ? "Ativo" : "Inativo");
+            boolean active = categoryService.toggleStatus(categoryId);
+            return ResponseEntity.ok(active ? "Ativo" : "Inativo");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao atualizar: " + e.getMessage());
         }
     }
+
 
 }

@@ -19,9 +19,9 @@ public class DataInitializer {
         return args -> {
             if (userRepository.findByEmail("admin@example.com").isEmpty()) {
                 // Departamentos
-                Department ti = new Department("IT", "101", "Building A");
-                Department financeiro = new Department("Finance", "202", "Building B");
-                Department atendimento = new Department("Support", "303", "Building C");
+                Department ti = new Department("TI", "101", "Prédio A, primeiro andar");
+                Department financeiro = new Department("Financeiro", "202", "Prédio C, quarto andar");
+                Department atendimento = new Department("Suporte", "303", "Prédio C, sexto andar");
 
                 departmentRepository.save(ti);
                 departmentRepository.save(financeiro);
