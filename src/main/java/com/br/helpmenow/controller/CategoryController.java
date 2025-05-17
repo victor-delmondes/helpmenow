@@ -25,12 +25,6 @@ public class CategoryController {
         return "categories";
     }
 
-    @GetMapping("/{id}")
-    @ResponseBody
-    public Category getById(@PathVariable Long id) {
-        return categoryService.findById(id);
-    }
-
     @PostMapping("/create")
     public String createCategory(
             @RequestParam("category_name_input") String name,

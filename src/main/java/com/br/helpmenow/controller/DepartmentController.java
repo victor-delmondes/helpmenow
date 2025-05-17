@@ -76,9 +76,4 @@ public class DepartmentController {
         }
     }
 
-    @GetMapping("/{id}")
-    @ResponseBody
-    public Department getById(@PathVariable Long id) {
-        return departmentService.findById(id);
-    }
 }

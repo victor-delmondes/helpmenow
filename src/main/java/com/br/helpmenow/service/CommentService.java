@@ -1,6 +1,7 @@
 package com.br.helpmenow.service;
 
 import com.br.helpmenow.model.Comment;
+import com.br.helpmenow.model.Ticket;
 import com.br.helpmenow.repository.CommentRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,11 @@ public class CommentService {
         return commentRepository.findById(id).orElse(null);
     }
 
-    public Comment save(Comment comment) {
+    public List<Comment> findByTicketId(Long ticketId) {
+        return commentRepository.findByTicketId(ticketId);
+    }
+
+    public Comment createComment(Comment comment) {
         return commentRepository.save(comment);
     }
 

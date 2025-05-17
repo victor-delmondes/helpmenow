@@ -123,10 +123,4 @@ public class UserAppController {
                     .body("Erro ao atualizar: " + e.getMessage());
         }
     }
-
-    @GetMapping("/{id}")
-    @ResponseBody
-    public UserApp getUserById(@PathVariable Long id) {
-        return userAppService.findById(id);
-    }
 }
