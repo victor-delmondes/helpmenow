@@ -1,5 +1,6 @@
 package com.br.helpmenow.service;
 
+import com.br.helpmenow.factory.UserFactory;
 import com.br.helpmenow.model.Department;
 import com.br.helpmenow.model.UserApp;
 import com.br.helpmenow.model.UserType;
@@ -37,15 +38,7 @@ public class UserAppService {
 
     public void createNewUser(String email, String password, String name, Long departmentId, String userType) {
         Department department = departmentService.findById(departmentId);
-
-        UserApp user = new UserApp();
-        user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setName(name);
-        user.setType(UserType.valueOf(userType));
-        user.setDepartment(department);
-        user.setActive(true);
-
+        UserApp user = UserFactory.create(email, password, name, department, userType, passwordEncoder);
         userAppRepository.save(user);
     }
 

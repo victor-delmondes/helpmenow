@@ -1,5 +1,6 @@
 package com.br.helpmenow.service;
 
+import com.br.helpmenow.factory.CategoryFactory;
 import com.br.helpmenow.model.Category;
 import com.br.helpmenow.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,7 @@ public class CategoryService {
     }
 
     public void createNewCategory(String name) {
-        Category category = new Category();
-        category.setName(name);
-        category.setStatus(true);
+        Category category = CategoryFactory.create(name);
         categoryRepository.save(category);
     }
 
