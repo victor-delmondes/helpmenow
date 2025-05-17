@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -32,6 +33,8 @@ public class TicketController {
     public String getTicketWithComments(@PathVariable Long id, Model model) {
         Ticket ticket = ticketService.findById(id);
         List<Comment> comments = commentService.findByTicketId(id);
+
+        comments.sort(Comparator.comparing(Comment::getCreatedAt).reversed());
 
         model.addAttribute("ticket", ticket);
         model.addAttribute("comments", comments);
@@ -66,8 +69,8 @@ public class TicketController {
 
     @PostMapping("/get-ticket")
     public String getTicket(
-            @RequestParam("") Long userId,
-            @RequestParam("") Long ticketId,
+            @RequestParam("start_button_user_id") Long userId,
+            @RequestParam("start_button_ticket_id") Long ticketId,
             RedirectAttributes redirectAttributes
     ) {
         try {
@@ -87,7 +90,7 @@ public class TicketController {
 
     @PostMapping("/finish-ticket")
     public String finishTicket(
-            @RequestParam("") Long ticketId,
+            @RequestParam("finish_button_ticket_id") Long ticketId,
             RedirectAttributes redirectAttributes
     ) {
         try {

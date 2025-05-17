@@ -88,13 +88,14 @@
                             <div class="col" id="em_andamento_icon" style="text-align: right;">
                                 <h6 class="text-primary m-0 fw-bold" style="display: inline-block;">Status:
                                     <span th:switch="${ticket.status.name()}">
-                                        <span th:case="'OPEN'">Em aberto<i class="fas fa-clock text-danger ps-0 ms-2"
-                                                                           style="font-size: 16px;"></i></span>
+                                        <span th:case="'OPEN'">Em aberto<i
+                                                class="fas fa-exclamation-circle text-danger ps-0 ms-2"
+                                                style="font-size: 16px;"></i></span>
                                         <span th:case="'IN_PROGRESS'">Andamento <i
                                                 class="fas fa-clock text-warning ps-0 ms-2"
                                                 style="font-size: 16px;"></i></span>
                                         <span th:case="'RESOLVED'">Resolvido <i
-                                                class="fas fa-clock text-success ps-0 ms-2"
+                                                class="fas fa-check-circle text-success ps-0 ms-2"
                                                 style="font-size: 16px;"></i></span>
                                         <span th:case="*">Desconhecido</span>
                                     </span>
@@ -117,16 +118,23 @@
                                                                      th:text="${#temporals.format(ticket.createdAt, 'dd/MM/yyyy HH:mm')}">---</span>
                         </p>
                         <div class="col" style="text-align: right;">
-                            <button class="btn btn-primary mt-3 me-3" id="end_ticket_button" type="button"
-                                    style="display: inline-block;"
-                                    th:if="${ticket.assignedTechnician != null and #authentication.principal.user.type.name() == 'ADMIN'}">
-                                Encerrar chamado
-                            </button>
-                            <button class="btn btn-primary mt-3 me-3" id="start_ticket_button" type="button"
-                                    style="display: inline-block;"
-                                    th:if="${#authentication.principal.user.type.name() == 'ADMIN' and ticket.assignedTechnician == null}">
-                                Iniciar chamado
-                            </button>
+                            <form method="post" th:action="@{/admin/ticket/finish-ticket}" style="display: inline-block;">
+                                <input type="hidden" th:value="${ticket.id}" name="finish_button_ticket_id">
+                                <button class="btn btn-primary mt-3 me-3" id="finish_ticket_button" type="submit"
+                                        style="display: inline-block;"
+                                        th:if="${ticket.assignedTechnician != null and #authentication.principal.user.type.name() == 'ADMIN' and ticket.status.name() != 'RESOLVED'}">
+                                    Encerrar chamado
+                                </button>
+                            </form>
+                            <form method="post" th:action="@{/admin/ticket/get-ticket}" style="display: inline-block;">
+                                <input type="hidden" th:value="${ticket.id}" name="start_button_ticket_id">
+                                <input type="hidden" th:value="${#authentication.principal.user.id}" name="start_button_user_id">
+                                <button class="btn btn-primary mt-3 me-3" id="start_ticket_button" type="submit"
+                                        style="display: inline-block;"
+                                        th:if="${#authentication.principal.user.type.name() == 'ADMIN' and ticket.assignedTechnician == null}">
+                                    Iniciar chamado
+                                </button>
+                            </form>
                             <button class="btn btn-primary mt-3" id="make_comment" type="button"
                                     style="display: inline-block;" data-bs-target="#modal-comment"
                                     data-bs-toggle="modal">Comentar
@@ -143,8 +151,14 @@
 
                         <div class="card bg-light mb-2" id="comment_card" th:each="com : ${comments}">
                             <div class="card-body mb-0">
-                                <h5 class="card-title mb-0" id="comment_user" style="font-weight: bold;"
-                                    th:text="${com.author}">userApp</h5>
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="card-title mb-0" id="comment_user" style="font-weight: bold;" th:text="${com.author.name}">userApp</h5>
+                                    </div>
+                                    <div class="col" style="text-align: right;">
+                                        <span class="card-text" id="time" th:text="${#temporals.format(com.createdAt, 'dd/MM/yyyy HH:mm')}">time</span>
+                                    </div>
+                                </div>
                                 <hr class="mt-1">
                                 <p class="card-text" id="comment" th:text="${com.text}">comment</p>
                             </div>
@@ -172,9 +186,9 @@
                 <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form id="make-comment-form" th:action="@{'/admin/ticket/' + ${#authentication.principal.user.type.name()} + '-make-comment'}" method="post">
-                    <input type="hidden" th:text="${ticket.id}" name="ticket_id_comment">
-                    <input type="hidden" th:text="${#authentication.principal.user.id}" name="user_id_comment">
+                <form id="make-comment-form" th:action="@{'/' + ${#strings.toLowerCase(#authentication.principal.user.type.name())} + '/ticket/' + ${#authentication.principal.user.type.name()} + '-make-comment'}" method="post">
+                    <input type="hidden" th:value="${ticket.id}" name="ticket_id_comment">
+                    <input type="hidden" th:value="${#authentication.principal.user.id}" name="user_id_comment">
                     <textarea class="form-control-lg" id="text_input" name="text_input"
                               style="width: 100%;color: var(--bs-secondary);font-size: 16px;min-height: 250px;"></textarea>
                 </form>
