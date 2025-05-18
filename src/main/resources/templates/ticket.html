@@ -27,13 +27,13 @@
                 <li class="nav-item"><a class="nav-link" href="/admin/index"
                                         th:if="${#authentication.principal.user.type.name() == 'ADMIN'}"><i
                         class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="users"
+                <li class="nav-item"><a class="nav-link" href="/admin/users"
                                         th:if="${#authentication.principal.user.type.name() == 'ADMIN'}"><i
                         class="fas fa-user-circle"></i><span>Usuários</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="departments"
+                <li class="nav-item"><a class="nav-link" href="/admin/departments"
                                         th:if="${#authentication.principal.user.type.name() == 'ADMIN'}"><i
                         class="fas fa-archive"></i><span>Departamentos</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="categories"
+                <li class="nav-item"><a class="nav-link" href="/admin/categories"
                                         th:if="${#authentication.principal.user.type.name() == 'ADMIN'}"><i
                         class="fas fa-list-ul"></i><span>Categorias</span></a></li>
             </ul>

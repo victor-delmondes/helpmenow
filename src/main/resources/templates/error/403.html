@@ -32,7 +32,9 @@
                             <p class="m-0">403</p>
                         </div>
                         <p class="text-dark mb-5 lead">Forbidden</p>
-                        <p class="text-black-50 mb-0">Hmmm... parece que você não tem autorização para cessar essa página</p><a th:href="@{${#authentication.principal.user.type.name() == 'ADMIN'} ? '/admin/index' : '/client/index'}">← voltar para Dashboard</a>
+                        <p class="text-black-50 mb-0 fw-bold">Acesso não autorizado para esse setor.</p>
+                        <p class="text-black-50">Esse recurso é exclusivo para determinados usuários. Se você acha que deveria ter acesso, entre em contato com o administrador do sistema.</p>
+                        <a th:href="@{${#authentication.principal.user.type.name() == 'ADMIN'} ? '/admin/index' : '/client/index'}">← voltar para Dashboard</a>
                     </div>
                 </div>
             </div>
