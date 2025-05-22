@@ -1,6 +1,5 @@
 package com.br.helpmenow.service;
 
-import com.br.helpmenow.factory.DepartmentFactory;
 import com.br.helpmenow.model.Department;
 import com.br.helpmenow.repository.DepartmentRepository;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,7 @@ public class DepartmentService {
     }
 
     public void createNewDepartment(String name, String extension, String location) {
-        Department dep = DepartmentFactory.create(name, extension, location);
+        Department dep = new Department(name, extension, location);
         departmentRepository.save(dep);
     }
 

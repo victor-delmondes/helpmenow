@@ -1,7 +1,5 @@
 package com.br.helpmenow.service;
 
-import com.br.helpmenow.factory.CommentFactory;
-import com.br.helpmenow.factory.TicketFactory;
 import com.br.helpmenow.model.*;
 import com.br.helpmenow.repository.TicketRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,7 +38,10 @@ public class TicketService {
         Ticket ticket = findById(ticketId);
         UserApp userApp = userAppService.findById(authorId);
 
-        Comment comment = CommentFactory.create(text, userApp, ticket);
+        Comment comment = new Comment();
+        comment.setAuthor(userApp);
+        comment.setText(text);
+        comment.setTicket(ticket);
         commentService.createComment(comment);
     }
 
@@ -84,7 +85,13 @@ public class TicketService {
 
     public void createNewTicket(String title, String description, String priority, Category category, String email) {
         UserApp user = userAppService.findByEmail(email);
-        Ticket ticket = TicketFactory.create(title, description, priority, category, user);
+        Ticket ticket = new Ticket();
+        ticket.setTitle(title);
+        ticket.setDescription(description);
+        ticket.setPriority(TicketPriority.valueOf(priority));
+        ticket.setStatus(TicketStatus.OPEN);
+        ticket.setCategory(category);
+        ticket.setCreatedBy(user);
         ticketRepository.save(ticket);
     }
 

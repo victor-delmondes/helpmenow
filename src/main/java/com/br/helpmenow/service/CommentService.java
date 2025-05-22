@@ -1,7 +1,6 @@
 package com.br.helpmenow.service;
 
 import com.br.helpmenow.model.Comment;
-import com.br.helpmenow.model.Ticket;
 import com.br.helpmenow.repository.CommentRepository;
 import org.springframework.stereotype.Service;
 
