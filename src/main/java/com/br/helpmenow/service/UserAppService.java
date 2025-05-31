@@ -6,6 +6,7 @@ import com.br.helpmenow.model.UserType;
 import com.br.helpmenow.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -35,6 +36,7 @@ public class UserAppService {
         return userAppRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 
+    @Transactional
     public void createNewUser(String email, String password, String name, Long departmentId, String userType) {
         Department department = departmentService.findById(departmentId);
         UserApp user = new UserApp();
@@ -47,6 +49,7 @@ public class UserAppService {
         userAppRepository.save(user);
     }
 
+    @Transactional
     public void updateUserDetails(UUID id, String email, String name, Long departmentId, String userType) {
         UserApp user = findById(id);
         Department department = departmentService.findById(departmentId);
@@ -59,12 +62,14 @@ public class UserAppService {
         userAppRepository.save(user);
     }
 
+    @Transactional
     public void updateUserPassword(UUID userId, String rawPassword) {
         UserApp user = findById(userId);
         user.setPassword(passwordEncoder.encode(rawPassword));
         userAppRepository.save(user);
     }
 
+    @Transactional
     public boolean toggleUserStatus(UUID userId) {
         UserApp user = findById(userId);
         user.setActive(!user.isActive());

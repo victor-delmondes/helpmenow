@@ -39,7 +39,6 @@ src
 │   │       ├── config         # Configurações globais do projeto (ex: inicialização de dados)
 │   │       ├── controller     # Controllers que recebem e tratam as requisições
 │   │       ├── dto            # Objetos de transferência de dados entre camadas
-│   │       ├── factory        # Criação de instâncias (uso de padrão Factory)
 │   │       ├── model          # Entidades (JPA) representando as tabelas do banco
 │   │       ├── repository     # Interfaces de acesso a dados (Spring Data JPA)
 │   │       ├── security       # Configurações e classes de autenticação/autorização

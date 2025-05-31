@@ -4,6 +4,7 @@ import com.br.helpmenow.model.*;
 import com.br.helpmenow.repository.TicketRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -34,6 +35,7 @@ public class TicketService {
         return ticketRepository.countByStatus(status);
     }
 
+    @Transactional
     public void addCommentToTicket(UUID authorId, Long ticketId, String text) {
         Ticket ticket = findById(ticketId);
         UserApp userApp = userAppService.findById(authorId);
@@ -57,6 +59,7 @@ public class TicketService {
         return data;
     }
 
+    @Transactional
     public void assignTechnicianAndStartTicket(UUID userId, Long ticketId) {
         Ticket ticket = findById(ticketId);
         UserApp userApp = userAppService.findById(userId);
@@ -65,12 +68,14 @@ public class TicketService {
         ticketRepository.save(ticket);
     }
 
+    @Transactional
     public void finishTicket(Long ticketId) {
         Ticket ticket = findById(ticketId);
         ticket.setStatus(TicketStatus.RESOLVED);
         ticketRepository.save(ticket);
     }
 
+    @Transactional(readOnly = true)
     public Map<String, Object> getDashboardData(String email) {
         UserApp user = userAppService.findByEmail(email);
 
@@ -83,6 +88,7 @@ public class TicketService {
         return data;
     }
 
+    @Transactional
     public void createNewTicket(String title, String description, String priority, Category category, String email) {
         UserApp user = userAppService.findByEmail(email);
         Ticket ticket = new Ticket();
@@ -94,8 +100,5 @@ public class TicketService {
         ticket.setCreatedBy(user);
         ticketRepository.save(ticket);
     }
-
-
-
 
 }
